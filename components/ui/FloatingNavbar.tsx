@@ -288,16 +288,23 @@ export const FloatingNav = ({
                   {isActive && (
                     <motion.div
                       layoutId="activeDot"
-                      className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-white shadow-lg"
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0 }}
+                      className="
+                        absolute -bottom-1 left-1/2
+                        -translate-x-1/2
+                        w-1.5 h-1.5
+                        rounded-full
+                        bg-white
+                        shadow-lg
+                      "
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
                       transition={{
                         type: "spring",
-                        stiffness: 500,
+                        stiffness: 400,
                         damping: 30,
                       }}
-                    />
+                    />  
                   )}
                 </AnimatePresence>
               </motion.button>

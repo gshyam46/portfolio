@@ -17,7 +17,9 @@ const HeroContent = () => {
           </span>
         </h1>
 
-        <Roles text="AI SOFTWARE ENGINEER" />
+        <Roles text="AI SOFTWARE ENGINEER" 
+                    fontSize="2rem"
+                      height="h-[60px]"/>
 
 
 

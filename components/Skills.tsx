@@ -3,6 +3,7 @@ import { useState } from "react";
 import { SKILL_CATEGORIES } from "@/constants/skills";
 import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
+import GlassHeading from "./ui/GlassHeading";
 
 export default function Skills() {
   const filteredSkills = SKILL_CATEGORIES.filter(s => s.id !== "all");
@@ -31,7 +32,19 @@ export default function Skills() {
   };
 
   return (
-    <section className="relative w-full min-h-[80vh] flex flex-col justify-center items-center py-12 px-4 z-30">
+    <section className="relative w-[90%] min-h-[80vh] flex flex-col justify-center items-center py-12 mt-25 px-4 z-30">
+                            
+               <GlassHeading
+                      className=" mb-16"
+                          text="Skills & Technologies"
+                          width="w-[100%]"
+                          position="center"
+                          fontSize="2.2rem"
+                            height="h-[60px]"
+                      />
+      
+      
+                  
       {/* Category Selector */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -68,17 +81,20 @@ export default function Skills() {
       </motion.div>
 
       {/* Skills Grid Container */}
-      <div className="w-full max-w-6xl">
-        <AnimatePresence mode="wait">
+<div
+  className="w-full max-w-6xl"
+  style={{ minHeight: "420px" }} 
+>
+       
           <motion.div
             key={active}
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.3 }}
-            className="grid grid-cols-2 gap-6  sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 text-gray-300 justify-items-center"
-          >
+ layout
+  transition={{ layout: { duration: 0.4, ease: "easeOut" } }}
+  className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 text-gray-300 justify-items-center"
+>
             {current.skills.map((skill, idx) => (
               <motion.div
                 key={skill.name}
@@ -123,7 +139,7 @@ export default function Skills() {
               </motion.div>
             ))}
           </motion.div>
-        </AnimatePresence>
+      
       </div>
     </section>
   );

@@ -29,18 +29,21 @@ export default function Experience() {
     return (
         <section
             ref={containerRef}
-            className="relative w-full py-10 overflow-hidden"
+            className="relative w-full py-10 "
         >
             {/* =========================
         GLASS HEADING
       ========================= */}
-            <div className="relative z-10 flex justify-center mb-16">
+            <div className="relative z-10 flex top-[-70px] justify-center mb-16">
                 <GlassHeading
                     text="Professional Experience"
-                    width="w-[90%]"
+                    width="w-[100%]"
                     position="center"
-                    fontSize="1rem"
+                    fontSize="2.2rem"
+                      height="h-[60px]"
                 />
+
+
             </div>
 
             {/* ========================= BACKGROUND VIDEO========================= */}
@@ -48,7 +51,7 @@ export default function Experience() {
                 autoPlay
                 muted
                 loop
-                className="scale-[1.3] rotate-180 absolute mt-10 top-[-410px] left-0 z-[0] object-cover"
+                className="scale-[1.3] absolute mt-10 top-[-590px] left-0 z-[0] object-cover"
                 style={{
                     filter:
                         "brightness(0.75) sepia(1) hue-rotate(-10deg) saturate(6) contrast(1.3)",
@@ -62,7 +65,7 @@ export default function Experience() {
         TIMELINE
       ========================= */}
             <div className="relative max-w-7xl mx-auto z-10">
-                {/* Curved center line */}
+                {/* Curved center line
                 <svg
                     className="absolute left-1/2 top-0 h-full w-[200px] -translate-x-1/2 z-0"
                     viewBox="0 0 200 1000"
@@ -74,7 +77,7 @@ export default function Experience() {
                         strokeWidth="4"
                         fill="none"
                     />
-                </svg>
+                </svg> */}
 
                 <div className="flex flex-col gap-20">
                     {EXPERIENCES.map((exp, idx) => {
@@ -89,19 +92,19 @@ export default function Experience() {
                                     }`}
                             >
                                 {/* DOT */}
-                                <div
+                                {/* <div
                                     className={`absolute left-1/2 -translate-x-1/2 top-[48px] z-10
                                         w-5 h-5 rounded-full transition-all duration-500
                                         ${isActive
                                             ? "bg-white shadow-[0_0_20px_rgba(255,255,255,0.9)]"
                                             : "bg-white/40"
                                         }`}
-                                />
+                                /> */}
 
                                 {/* CARD */}
                                 <div
                                     className={`
-                                        glass-container w-[45%] z-10
+                                        glass-container w-[75%] z-10
                                         transition-all duration-700 ease-out
                                         ${isActive
                                             ? "opacity-100 translate-y-0"
