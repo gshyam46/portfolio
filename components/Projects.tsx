@@ -1,17 +1,15 @@
 
 
+
+
+
+
 "use client";
 
 import { useRef, useState } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  useInView,
-  AnimatePresence,
-} from "framer-motion";
+import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
 import GlassHeading from "./ui/GlassHeading";
+import ProjectMotionCard from "./ui/ProjectMotionCard";
 import ProjectCard from "./ui/ProjectCard";
 import { PROJECTS } from "@/constants/projects";
 
@@ -68,9 +66,9 @@ const handleToggle = () => {
   }
 };
 
+
   return (
-    <section ref={sectionRef} className="relative w-full">
-      {/* Heading */}
+    <section ref={sectionRef} className="relative w-full z-30">
       <div className="flex w-full justify-center mt-24 mb-5">
         <GlassHeading
           text="Projects"
@@ -81,51 +79,19 @@ const handleToggle = () => {
         />
       </div>
 
-      {/* MAIN DECK (3 cards only) */}
+      {/* MAIN 3 PROJECTS */}
       <div className="relative h-[360px] w-full flex justify-center">
-        {mainCards.map((project, i) => {
-          const x = useSpring(
-            useTransform(progress, [0, 1], [deck[i][0], grid[i][0]]),
-            SPRING
-          );
-
-          const y = useSpring(
-            useTransform(progress, [0, 1], [deck[i][1], grid[i][1]]),
-            SPRING
-          );
-
-          const scale = useSpring(
-            useTransform(progress, [0, 0.3], [0.94, 1]),
-            SPRING
-          );
-
-          const rotate = useSpring(
-            useTransform(progress, [0, 1], [(i - 1) * 6, 0]),
-            SPRING
-          );
-
-          const entryY = useSpring(inView ? 0 : 30, {
-            stiffness: 120,
-            damping: 20,
-          });
-
-          return (
-            <motion.div
-              key={project.id}
-              style={{
-                x,
-                y,
-                scale,
-                rotate,
-                translateY: entryY,
-                zIndex: 10 - Math.abs(i - 1),
-              }}
-              className="absolute top-0 -translate-x-1/2"
-            >
-              <ProjectCard project={project} />
-            </motion.div>
-          );
-        })}
+        {mainCards.map((project, i) => (
+          <ProjectMotionCard
+            key={project.id}
+            project={project}
+            index={i}
+            progress={progress}
+            deck={deck}
+            grid={grid}
+            inView={inView}
+          />
+        ))}
       </div>
 
       {/* EXTRA PROJECTS (SMOOTH COLLAPSE) */}
@@ -172,19 +138,20 @@ const handleToggle = () => {
         )}
       </AnimatePresence>
 
-      {/* VIEW MORE BUTTON
-      <div className="flex justify-center mt-12 ">
-        <div className="flex items-center gap-6 w-full max-w-md">
-          <div className="flex-1 h-px bg-gradient-to-r from-transparent to-white/30" />
-          <button
-            onClick={ handleToggle}
-            className="relative z-30 pointer-events-auto px-6 py-2 text-sm text-white/60 hover:text-white bg-transparent hover:bg-white/5 rounded transition-all duration-300 font-medium tracking-wide cursor-pointer active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
-          >
-            {showAll ? "View less" : "View more"}
-          </button>
-          <div className="flex-1 h-px bg-gradient-to-l from-transparent to-white/30" />
-        </div>
+      {/* VIEW MORE BUTTON */}
+      {/* <div className="flex justify-center mt-12">
+        <button
+          onClick={handleToggle}
+          className="px-6 py-2 text-sm text-white/60 hover:text-white
+                     bg-transparent hover:bg-white/5 rounded
+                     transition-all duration-300"
+        >
+          {showAll ? "View less" : "View more"}
+        </button>
       </div> */}
     </section>
   );
 }
+
+
+

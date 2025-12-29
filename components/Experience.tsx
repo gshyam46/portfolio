@@ -165,6 +165,7 @@ function ExperienceCard({ exp, isActive }: any) {
         <div className="flex items-center gap-3">
           {exp.logo && (
             <Image
+             
               src={exp.logo}
               alt={exp.company}
               width={42}
