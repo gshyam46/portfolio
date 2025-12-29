@@ -13,13 +13,14 @@ export const EXPERIENCES: Experience[] = [
     {
         company: "Oracle",
         role: "Associate Consultant",
-        logo: "/logos/oracle.png",
+        logo: "/logos/oracle2.png",
         location: "Bengaluru, India (Hybrid)",
         type: "Full-time",
         duration: "Aug 2025 – Present",
         description: [
             "Completed intensive enterprise training in Java, Oracle SQL, Groovy, JUnit, and front-end development, building a strong foundation in large-scale software development and testing.",
             "Earned multiple Oracle certifications including OCI Foundations, OCI AI, Generative AI, Vector Databases, Agentic AI, and RAG systems.",
+            "Engaged in Oracle product training and solution design, preparing to deliver client-facing cloud and AI-driven solutions.",
             "Engaged in Oracle product training and solution design, preparing to deliver client-facing cloud and AI-driven solutions.",
         ],
         technologies: [
@@ -35,8 +36,8 @@ export const EXPERIENCES: Experience[] = [
     },
 
     {
-        company: "Codifinary Technologies",
-        logo: "/logos/oracle.png",
+        company: "Codifinary Technologies - CodeXray",
+        logo: "/logos/codexray.jfif",
         role: "Software Developer",
         location: "Remote",
         type: "Contract",

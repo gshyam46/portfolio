@@ -340,19 +340,19 @@ export default function GlobeScene() {
   }, []);
 
   return (
-    <div className="relative w-full h-[50vh] top-[535px]">
+    <div className="relative w-full h-[50vh] top-[450px]">
       {/* Globe Container - Clipped at bottom */}
       <div
-        ref={containerRef}
-        className="absolute inset-0"
-        style={{
-          top: 0,
-          scale: "2.7",
-          clipPath: "inset(0 0 50% 0)",
-        }}
+      ref={containerRef}
+      className="absolute inset-0"
+      style={{
+        filter:
+        "brightness(1.2) saturate(1.15) contrast(1.1) blur(0px) drop-shadow(0 0 2px rgba(59, 130, 246, 0.5))",
+        top: 0,
+        scale: "2.1",
+        clipPath: "inset(0 0 60% 0)",
+      }}
       />
-
-
     </div>
   );
 }

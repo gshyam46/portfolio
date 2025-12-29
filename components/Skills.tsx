@@ -4,7 +4,7 @@ import { SKILL_CATEGORIES } from "@/constants/skills";
 import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
 import GlassHeading from "./ui/GlassHeading";
-import GlobeScene from "./ui/GlobeScene";
+
 
 export default function Skills() {
   const filteredSkills = SKILL_CATEGORIES.filter(s => s.id !== "all");
@@ -33,8 +33,8 @@ export default function Skills() {
   };
 
   return (
-    <section className="relative w-[90%] min-h-[80vh] flex flex-col justify-center items-center top-10 px-4 z-30">   
-                          <div className="absolute  flex flex-col justify-center items-center top-36" >   
+    <section className="relative w-[90%] min-h-[80vh] flex flex-col justify-center items-center top-3 px-4 z-30">   
+                          <div className="absolute  flex flex-col justify-center items-center " >   
                <GlassHeading
                       className=" mb-16"
                           text="Skills & Technologies"
