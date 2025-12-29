@@ -6,7 +6,7 @@ import Roles from "./GlassHeading";
 
 const HeroContent = () => {
   return (
-    <div className="flex flex-row items-center justify-center px-20 mt-40 w-full z-[20]">
+    <div className="flex flex-row items-center justify-center px-32 mt-10 w-full z-[20]">
       <div className="h-full w-full flex flex-col justify-center text-start">
 
 

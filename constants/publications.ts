@@ -1,0 +1,21 @@
+export const PUBLICATIONS = [
+  {
+    id: "aida-2025",
+    title: "AIDA: An Intelligent Data Abstraction Framework for Natural Language Querying",
+    publisher: "Preprint / Independent Research",
+    year: "2025",
+    abstract: [
+  "AIDA: (Adaptive Intelligent Data Abstraction) is a modular AI framework that enables natural language querying across structured, semi-structured, and unstructured data sources.It leverages adaptive semantic routing and lightweight reasoning to deliver accurate, cost-efficient, and interpretable responses.Designed for scalability, AIDA supports enterprise analytics, research workflows, and decision-making across heterogeneous data ecosystems.",
+  "Unified Query Interface: Enables natural language interaction with structured (SQL), semi-structured (NoSQL), and unstructured (documents, text) data sources through a single abstraction layer.",
+  "Adaptive Semantic Routing: Dynamically routes user queries to the most appropriate processing pipeline (SQL, RAG, hybrid, or reasoning-based) without manual configuration.",
+  "Lightweight Reasoning Layer: Applies minimal yet effective reasoning mechanisms to preserve interpretability, reduce hallucinations, and optimize response accuracy.",
+  "Model-Agnostic Architecture: Supports interchangeable LLMs (OpenAI, open-source, local inference) to minimize vendor lock-in and operational cost.",
+  "Scalable & Modular Design: Enables seamless integration of new data sources, reasoning modules, and retrieval strategies.",
+  "Cost-Efficient AI Querying: Reduces token usage and inference overhead through selective context construction and intelligent routing.",
+  "Real-World Applicability: Designed for enterprise analytics, research exploration, and decision-support systems.",
+  "Impact: Bridges the gap between natural language interfaces and complex data ecosystems through scalable and interpretable AI-driven interaction."
+],
+    tags: ["AI", "NLP", "RAG", "Data Systems", "Semantic Reasoning", "Research"],
+    link: "https://example.com",
+  },
+];
