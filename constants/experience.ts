@@ -13,7 +13,7 @@ export const EXPERIENCES: Experience[] = [
     {
         company: "Oracle",
         role: "Associate Consultant",
-        logo: "/logos/oracle2.png",
+        logo: "/portfolio/logos/oracle2.png",
         location: "Bengaluru, India (Hybrid)",
         type: "Full-time",
         duration: "Aug 2025 – Present",
@@ -37,7 +37,7 @@ export const EXPERIENCES: Experience[] = [
 
     {
         company: "Codifinary Technologies - CodeXray",
-        logo: "/logos/codexray.jfif",
+        logo: "/portfolio/logos/codexray.jfif",
         role: "Software Developer",
         location: "Remote",
         type: "Contract",
@@ -60,7 +60,7 @@ export const EXPERIENCES: Experience[] = [
 
     {
         company: "Vizares",
-        logo: "/logos/oracle.png",
+        logo: "/portfolio/logos/oracle.png",
         role: "Software Developer Intern",
         location: "Bengaluru, India",
         type: "Internship",
@@ -86,7 +86,7 @@ export const EXPERIENCES: Experience[] = [
 
     {
         company: "ContentEaseAI",
-        logo: "/logos/oracle.png",
+        logo: "/portfolio/logos/oracle.png",
         role: "Software Developer Intern",
         location: "Tempe, AZ, USA (Remote)",
         type: "Internship",
