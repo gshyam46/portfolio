@@ -6,30 +6,19 @@ import {
   RxTwitterLogo,
   RxLinkedinLogo,
 } from "react-icons/rx";
-
+import Image from "next/image";
 import { FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <div className="w-full h-full bg-transparent text-gray-200 shadow-lg p-[15px] ">
+    <div className="w-full h-full bg-transparent text-black shadow-lg p-[15px] ">
         <div className="w-full flex flex-col items-center justify-center m-auto">
             <div className="w-full h-full flex flex-row items-center justify-around flex-wrap">
                 
 
-                <div className="min-w-[200px] h-auto flex flex-col items-center justify-start">
-                    <div className="font-bold text-[16px]">Community</div>
-                    <p className="flex flex-row items-center my-[15px] cursor-pointer">
-                        <FaYoutube />
-                        <span className="text-[15px] ml-[6px]">Youtube</span>    
-                    </p>
-                    <p className="flex flex-row items-center my-[15px] cursor-pointer">
-                        <RxGithubLogo />
-                        <span className="text-[15px] ml-[6px]">Github</span>    
-                    </p>
-                    <p className="flex flex-row items-center my-[15px] cursor-pointer">
-                        <RxDiscordLogo />
-                        <span className="text-[15px] ml-[6px]">Discord</span>    
-                    </p>
+                <div className="min-w-[200px] h-auto text-2xl flex flex-col items-center justify-start">
+                    Thanks for watching through my Portfolio!
+                  <h1 className="text-5xl mt-10">GHANASHYAM</h1> 
                 </div>
                 <div className="min-w-[200px] h-auto flex flex-col items-center justify-start">
                     <div className="font-bold text-[16px]">Social Media</div>
@@ -45,26 +34,31 @@ const Footer = () => {
                         <RxDiscordLogo />
                         <span className="text-[15px] ml-[6px]">Linkedin</span>    
                     </p>
+                     <p className="flex flex-row items-center my-[15px] cursor-pointer">
+                        <RxGithubLogo />
+                        <span className="text-[15px] ml-[6px]">Github</span>    
+                    </p>
                 </div>
-                <div className="min-w-[200px] h-auto flex flex-col items-center justify-start">
-                    <div className="font-bold text-[16px]">About</div>
-                   <p className="flex flex-row items-center my-[15px] cursor-pointer">
-                     
-                        <span className="text-[15px] ml-[6px]">Become Sponsor</span>    
-                    </p>
-                    <p className="flex flex-row items-center my-[15px] cursor-pointer">
-                      
-                        <span className="text-[15px] ml-[6px]">Learning about me</span>    
-                    </p>
-                    <p className="flex flex-row items-center my-[15px] cursor-pointer">
-                  
-                        <span className="text-[15px] ml-[6px]">mifwebchain@gmail.com</span>    
-                    </p>
+                <div className=" mt-5 min-w-[200px] h-auto flex flex-col items-center justify-start">
+                   
+                   <div className="relative w-80 h-80 flex items-center justify-center">
+                                
+                               <div className="w-full h-full rounded-full bg-black flex items-center justify-center overflow-hidden">
+                                 <Image
+                             src="/shyam.jpg"
+                             alt="Ghanashyam"
+                             width={300}
+                             height={300}
+                             className="rounded-full object-cover object-bottom"
+                                 />
+                               </div>
+                             
+                           </div>
                 </div>
             </div>
 
-            <div className="mb-[20px] text-[15px] text-center">
-                &copy; WebChain Dev 2023 Inc. All rights reserved
+            <div className="mb-3 text-[15px] text-center">
+                &copy; Ghanashyam 2026. All rights reserved.
             </div>
         </div>
     </div>

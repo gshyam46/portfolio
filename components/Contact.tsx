@@ -5,7 +5,20 @@ import GlassHeading from "./ui/GlassHeading";
 
 export default function Contact() {
   return (
+    
     <section className="relative w-full z-30">
+      {/* <video
+                    autoPlay
+                    muted
+                    loop
+                    className="scale-[1.3] absolute top-[-520px] left-0 z-[0] object-cover"
+                    style={{
+                      filter:
+                        "brightness(0.75) sepia(1) hue-rotate(-10deg) saturate(6) contrast(1.3)",
+                                    }}
+                  >
+                    <source src="/blackhole.webm" type="video/webm" />
+                  </video> */}
       {/* Heading */}
       <div className="flex justify-center mb-10">
         <GlassHeading

@@ -20,6 +20,8 @@ export default function Publications() {
       ref={sectionRef}
       className="relative w-full"
     >
+       
+      
       {/* Heading */}
       <div className="flex justify-center mb-14">
         <GlassHeading

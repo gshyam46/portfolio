@@ -33,8 +33,9 @@ export default function Skills() {
   };
 
   return (
-    <section className="relative w-[90%] min-h-[80vh] flex flex-col justify-center items-center top-3 px-4 z-30">   
-                          <div className="absolute  flex flex-col justify-center items-center " >   
+    <section className="relative w-[90%] min-h-[80vh] flex flex-col justify-center items-center top-36 px-4 z-30">  
+     
+                          <div className="absolute  flex flex-col mt-36 justify-center items-center " >   
                <GlassHeading
                       className=" mb-16"
                           text="Skills & Technologies"

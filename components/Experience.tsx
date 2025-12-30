@@ -1,140 +1,478 @@
 
+// "use client";
+
+// import { useEffect, useRef, useState } from "react";
+// import { motion, AnimatePresence } from "framer-motion";
+// import Image from "next/image";
+// import { EXPERIENCES } from "@/constants/experience";
+
+
+
+// export default function Experience() {
+//   const containerRef = useRef<HTMLDivElement | null>(null);
+//   const [currentIndex, setCurrentIndex] = useState(0);
+//   const [direction, setDirection] = useState(0);
+//   const isScrollingRef = useRef(false);
+//   const lastScrollTimeRef = useRef(0);
+
+//   useEffect(() => {
+//     const container = containerRef.current;
+//     if (!container) return;
+
+//     const handleWheel = (e: WheelEvent) => {
+//       const now = Date.now();
+      
+//       // Throttle scroll events - increased for smoother feel
+//       if (now - lastScrollTimeRef.current < 1000) {
+//         e.preventDefault();
+//         return;
+//       }
+
+//       const rect = container.getBoundingClientRect();
+//       const isInView = rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2;
+
+//       if (!isInView) return;
+
+//       if (isScrollingRef.current) {
+//         e.preventDefault();
+//         return;
+//       }
+
+//       // Scrolling down
+//       if (e.deltaY > 0) {
+//         if (currentIndex < EXPERIENCES.length - 1) {
+//           e.preventDefault();
+//           isScrollingRef.current = true;
+//           lastScrollTimeRef.current = now;
+//           setDirection(1);
+//           setCurrentIndex(prev => prev + 1);
+//           setTimeout(() => {
+//             isScrollingRef.current = false;
+//           }, 1000);
+//         }
+//       }
+//       // Scrolling up
+//       else if (e.deltaY < 0) {
+//         if (currentIndex > 0) {
+//           e.preventDefault();
+//           isScrollingRef.current = true;
+//           lastScrollTimeRef.current = now;
+//           setDirection(-1);
+//           setCurrentIndex(prev => prev - 1);
+//           setTimeout(() => {
+//             isScrollingRef.current = false;
+//           }, 1000);
+//         }
+//       }
+//     };
+
+//     container.addEventListener("wheel", handleWheel, { passive: false });
+
+//     return () => {
+//       container.removeEventListener("wheel", handleWheel);
+//     };
+//   }, [currentIndex]);
+
+//   const slideVariants = {
+//     enter: (direction: number) => ({
+//       x: direction > 0 ? 1200 : -1200,
+//       opacity: 0,
+//       scale: 0.85,
+//       rotateY: direction > 0 ? 15 : -15
+//     }),
+//     center: {
+//       x: 0,
+//       opacity: 1,
+//       scale: 1,
+//       rotateY: 0,
+//       transition: {
+//         duration: 0.8,
+//         ease: [0.25, 0.46, 0.45, 0.94],
+//         opacity: { duration: 0.6 },
+//         scale: { duration: 0.6 }
+//       }
+//     },
+//     exit: (direction: number) => ({
+//       x: direction > 0 ? -1200 : 1200,
+//       opacity: 0,
+//       scale: 0.85,
+//       rotateY: direction > 0 ? -15 : 15,
+//       transition: {
+//         duration: 0.8,
+//         ease: [0.25, 0.46, 0.45, 0.94],
+//         opacity: { duration: 0.6 },
+//         scale: { duration: 0.6 }
+//       }
+//     })
+//   };
+
+//   return (
+//     <section ref={containerRef} className="relative w-full min-h-screen flex flex-col justify-center py-20 z-30">
+//       {/* Heading */}
+//       {/* <div className="relative z-10 flex justify-center mb-12">
+//         <GlassHeading
+//           text="Roles and Responsibilities"
+//           width="w-[100%]"
+//           position="center"
+//           fontSize="2.2rem"
+//           height="h-[60px]"
+//         />
+//       </div> */}
+
+//       {/* Experience Display */}
+//       <div className="relative mt-8 w-[80vw] h-[80vh] mx-auto z-10 flex justify-center items-center">
+//         <AnimatePresence initial={false} custom={direction} mode="wait">
+//           <motion.div
+//             key={currentIndex}
+//             custom={direction}
+//             variants={slideVariants}
+//             initial="enter"
+//             animate="center"
+//             exit="exit"
+//             className="w-full h-full flex justify-center items-center"
+//             style={{ perspective: "2000px" }}
+//           >
+//             <ExperienceCard exp={EXPERIENCES[currentIndex]} />
+//           </motion.div>
+//         </AnimatePresence>
+//       </div>
+
+//       {/* Progress Indicator */}
+//       <div className="relative z-10 flex justify-center items-center gap-3 mt-12">
+//         {EXPERIENCES.map((_, idx) => (
+//           <button
+//             key={idx}
+//             onClick={() => {
+//               setDirection(idx > currentIndex ? 1 : -1);
+//               setCurrentIndex(idx);
+//             }}
+//             className={`h-2 rounded-full transition-all duration-500 ${
+//               idx === currentIndex 
+//                 ? "w-12 bg-white shadow-lg shadow-white/50" 
+//                 : "w-2 bg-white/40 hover:bg-white/70"
+//             }`}
+//             aria-label={`Go to experience ${idx + 1}`}
+//           />
+//         ))}
+//       </div>
+
+//       {/* Scroll Hint */}
+//       <div className="relative z-10 flex justify-center mt-8">
+//         <p className="text-white/70 text-base font-medium tracking-wide">
+//           {currentIndex === 0 && "Scroll down to see more experiences"}
+//           {currentIndex > 0 && currentIndex < EXPERIENCES.length - 1 && 
+//             `Experience ${currentIndex + 1} of ${EXPERIENCES.length}`}
+//           {currentIndex === EXPERIENCES.length - 1 && "Scroll down to continue"}
+//         </p>
+//       </div>
+
+//       {/* Background Video */}
+//       <div className="absolute mt-28 top-[700px] left-0 w-full z-[0] overflow-hidden">
+//         <video
+//           autoPlay
+//           muted
+//           loop
+//           className="inset-0 w-full h-full object-cover scale-[1.3]"
+//           style={{
+//             filter: "brightness(0.75) sepia(1) hue-rotate(-10deg) saturate(6) contrast(1.3)",
+//           }}
+//         >
+//           <source src="/blackhole.webm" type="video/webm" />
+//         </video>
+//         {/* Gradient Overlay */}
+//         <div
+//           className="absolute inset-0 pointer-events-none"
+//           style={{
+//             background:
+//               "linear-gradient(to top, rgba(0, 0, 0, 0.99) 0%, rgba(0,0,0,0.85) 35%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0) 55%)",
+//           }}
+//         />
+//       </div>
+//     </section>
+//   );
+// }
+
+// /* ========================
+//    Experience Card
+// ======================== */
+// function ExperienceCard({ exp }: any) {
+//   return (
+//     <div
+//       className=" w-full h-full z-10"
+//       // className="glass-container w-full h-full z-10"
+//       // style={{
+//       //   borderRadius: "20px",
+//       //   background: "rgba(255, 255, 255, 0.1)",
+//       //   backdropFilter: "blur(24px)",
+//       //   border: "1px solid rgba(255, 255, 255, 0.6)",
+//       //   boxShadow: "0 25px 80px rgba(0, 0, 0, 0.5), 0 0 60px rgba(255, 255, 255, 0.1), inset 0 0 40px rgba(255, 255, 255, 0.05)",
+//       // }}
+//     >
+//       {/* <div className="glass-filter" />
+//       <div className="glass-overlay" />
+//       <div className="glass-specular" /> */}
+
+//       {/* <div className="glass-content flex flex-col h-full p-12 gap-8"> */}
+//       <div className=" flex flex-col h-full p-12 gap-8">
+//         {/* Header Section */}
+//         <div className="flex items-center gap-6 pb-6 border-b border-white/20">
+//           {exp.logo && (
+//             <div className="flex-shrink-0">
+//               <Image
+//                 src={exp.logo}
+//                 alt={exp.company}
+//                 width={80}
+//                 height={80}
+//                 className="rounded-xl shadow-lg"
+//               />
+//             </div>
+//           )}
+//           <div className="flex-1">
+//             <h3 className="text-5xl font-bold text-white mb-3 tracking-tight leading-tight">
+//               {exp.company}
+//             </h3>
+//             <p className="text-2xl text-white/95 font-medium">
+//               {exp.role}
+//             </p>
+//           </div>
+//         </div>
+
+//         {/* Duration */}
+//         <div className="flex items-center gap-3">
+//           <div className="w-1.5 h-8 bg-gradient-to-b from-white to-white/50 rounded-full" />
+//           <p className="text-xl text-white/90 font-medium tracking-wide">
+//             {exp.duration}
+//           </p>
+//         </div>
+
+//         {/* Description Section */}
+//         <div className="flex-1 flex flex-col gap-4 ">
+//           <h4 className="text-lg text-white/80 font-semibold uppercase tracking-wider mb-2">
+//             Key Achievements
+//           </h4>
+//           <ul className="space-y-4">
+//             {exp.description.map((d: string, i: number) => (
+//               <li key={i} className="flex items-start gap-4">
+//                 <span className="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-white shadow-lg shadow-white/50" />
+//                 <span className="text-xl text-white/95 leading-relaxed font-normal">
+//                   {d}
+//                 </span>
+//               </li>
+//             ))}
+//           </ul>
+//         </div>
+
+//         {/* Technologies Section */}
+//         <div className="pt-6 border-t border-white/20">
+//           <h4 className="text-lg text-white/80 font-semibold uppercase tracking-wider mb-4">
+//             Technologies
+//           </h4>
+//           <div className="flex flex-wrap gap-3">
+//             {exp.technologies.map((tech: string) => (
+//               <span
+//                 key={tech}
+//                 className="px-5 py-2.5 rounded-xl bg-white/15 text-base text-white font-medium hover:bg-white/25 transition-all duration-300 shadow-lg backdrop-blur-sm border border-white/20"
+//               >
+//                 {tech}
+//               </span>
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+
+
+
+
+
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import GlassHeading from "./ui/GlassHeading";
 import { EXPERIENCES } from "@/constants/experience";
-import GlobeScene from "./ui/GlobeScene";
+import { useMotionValue, useSpring } from "framer-motion";
 
 export default function Experience() {
-  const containerRef = useRef<HTMLDivElement | null>(null);
- 
-  const [showAll, setShowAll] = useState(false);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
 
-  const visibleExperiences = EXPERIENCES.slice(0, 2);
-  const extraExperiences = EXPERIENCES.slice(2);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  const total = EXPERIENCES.length;
+
+  // Scroll progress tied to section
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  const rawScrollDelta = useMotionValue(0);
+
+// Amplify movement
+const amplified = useSpring(rawScrollDelta, {
+  stiffness: 220,
+  damping: 28,
+  mass: 0.4,
+});
+
+  /**
+   * Map vertical scroll → index
+   * This keeps your animation logic unchanged
+   */
+  const smoothProgress = useSpring(scrollYProgress, {
+  stiffness: 260,
+  damping: 30,
+  mass: 0.6,
+});
+useEffect(() => {
+  const unsubscribe = smoothProgress.on("change", (v) => {
+    const delta = v - scrollYProgress.get();
+
+    // Amplify scroll input
+    rawScrollDelta.set(delta * 6); // 🔥 multiplier
+
+    const index = Math.min(
+      total - 1,
+      Math.max(0, Math.round(v * (total - 1)))
+    );
+
+    if (index !== currentIndex) {
+      setDirection(index > currentIndex ? 1 : -1);
+      setCurrentIndex(index);
+    }
+  });
+
+  return () => unsubscribe();
+}, [smoothProgress, currentIndex, total]);
 
 
-const handleToggle = () => {
-  if (showAll) {
-    // Scroll smoothly BEFORE collapsing
-    containerRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
 
-    setTimeout(() => {
-      setShowAll(false);
-    }, 350); // sync with animation
-  } else {
-    setShowAll(true);
-  }
+
+ const slideVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 900 : -900,
+    opacity: 0,
+    scale: 0.9,
+    rotateY: direction > 0 ? 12 : -12,
+  }),
+
+  center: {
+    x: 0,
+    opacity: 1,
+    scale: 1,
+    rotateY: 0,
+    transition: {
+      duration: 0.45,   // ⬅ faster
+      ease: [0.22, 1, 0.36, 1], // snappier
+      opacity: { duration: 0.35 },
+      scale: { duration: 0.35 },
+    },
+  },
+
+  exit: (direction: number) => ({
+    x: direction > 0 ? -900 : 900,
+    opacity: 0,
+    scale: 0.9,
+    rotateY: direction > 0 ? -12 : 12,
+    transition: {
+      duration: 0.45,
+      ease: [0.22, 1, 0.36, 1],
+      opacity: { duration: 0.35 },
+      scale: { duration: 0.35 },
+    },
+  }),
 };
 
+
   return (
-    <section ref={containerRef} className="relative w-full mb-[-10] z-30">
-      {/* Heading */}
-      <div className="relative z-10 flex mt-36 pt-3 justify-center mb-16">
-        <GlassHeading
-          text="Professional Experience"
-          width="w-[100%]"
-          position="center"
-          fontSize="2.2rem"
-          height="h-[60px]"
-        />
-      </div>
+<section
+  ref={sectionRef}
+  className="relative w-full"
+  style={{ height: `${EXPERIENCES.length * 100}vh` }}
+>
 
-      {/* EXPERIENCE LIST */}
-      <div className="relative max-w-[80%] mx-auto z-10 flex flex-col gap-10">
+      {/* Sticky viewport */}
+      <div className="sticky top-0 h-screen flex flex-col justify-center z-30">
 
-        {/* Always visible */}
-        {visibleExperiences.map((exp, idx) => {
-          const isLeft = idx % 2 === 0;
-          const isActive = true;
-
-          return (
-            <div
-              key={exp.company}
-              data-index={idx}
-              className={`experience-card relative flex ${
-                isLeft ? "justify-start" : "justify-end"
-              }`}
-            >
-              <ExperienceCard exp={exp} isActive={isActive} />
-            </div>
-          );
-        })}
-
-        {/* Expandable section */}
-        <AnimatePresence  mode="wait">
-          {showAll && (
+        {/* Experience Display */}
+        <div className="relative mt-8 w-[80vw] h-[80vh] mx-auto z-10 flex justify-center items-center">
+          <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{
-                opacity: 1,
-                height: "auto",
-                transition: {
-                  height: { duration: 0.5, ease: [0.22, 1, 0.36, 1],delay: 0.1  },
-                  opacity: { duration: 0.4, delay: 0.1 },
-                },
-              }}
-              exit={{
-                opacity: 0,
-                height: 0,
-                transition: {
-                  opacity: { duration: 0.5 },
-                    height: { duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }
-                },
-              }}
-              className="flex flex-col gap-10 overflow-hidden"
+              key={currentIndex}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              className="w-full h-full flex justify-center items-center"
+             style={{
+  perspective: "2000px",
+  x: amplified,
+  rotateY: useTransform(amplified, [-60, 60], [-8, 8]),
+}}
+
             >
-              {extraExperiences.map((exp, idx) => {
-                const realIndex = idx + 2;
-                const isLeft = realIndex % 2 === 0;
-
-                return (
-                  <motion.div
-                    key={exp.company}
-                    data-index={realIndex}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 20 }}
-                    transition={{
-                      delay: idx * 0.08,
-                      duration: 0.4,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                    className={`experience-card relative flex ${
-                      isLeft ? "justify-start" : "justify-end"
-                    }`}
-                  >
-                    <ExperienceCard exp={exp} isActive={true} />
-                  </motion.div>
-                );
-              })}
+              <ExperienceCard exp={EXPERIENCES[currentIndex]} />
             </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+          </AnimatePresence>
+        </div>
 
-      {/* VIEW MORE / LESS */}
-      <div className="flex justify-center mt-16">
-        <div className="flex items-center gap-6 w-full max-w-md">
-          <div className="flex-1 h-px bg-gradient-to-r from-transparent to-white/30" />
+        {/* Progress Indicator */}
+        <div className="relative z-10 flex justify-center items-center gap-3 mt-12">
+          {EXPERIENCES.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => {
+                setDirection(idx > currentIndex ? 1 : -1);
+                setCurrentIndex(idx);
+              }}
+              className={`h-2 rounded-full transition-all duration-500 ${
+                idx === currentIndex
+                  ? "w-12 bg-white shadow-lg shadow-white/50"
+                  : "w-2 bg-white/40 hover:bg-white/70"
+              }`}
+            />
+          ))}
+        </div>
 
-          <button
-            onClick={handleToggle}
-            className="relative z-30 px-6 py-2 text-sm text-white/60 hover:text-white bg-transparent hover:bg-white/5 rounded transition-all duration-300 font-medium tracking-wide active:scale-95"
+        {/* Scroll Hint */}
+        <div className="relative z-10 flex justify-center mt-8">
+          <p className="text-white/70 text-base font-medium tracking-wide">
+            {currentIndex === 0 && "Scroll down to see more experiences"}
+            {currentIndex > 0 && currentIndex < total - 1 &&
+              `Experience ${currentIndex + 1} of ${total}`}
+            {currentIndex === total - 1 && "Scroll down to continue"}
+          </p>
+        </div>
+
+        {/* Background Video (UNCHANGED) */}
+        <div className="absolute mt-28 top-[700px] left-0 w-full z-[0] overflow-hidden">
+          <video
+            autoPlay
+            muted
+            loop
+            className="inset-0 w-full h-full object-cover scale-[1.3]"
+            style={{
+              filter:
+                "brightness(0.75) sepia(1) hue-rotate(-10deg) saturate(6) contrast(1.3)",
+            }}
           >
-            {showAll ? "View less" : "View more"}
-          </button>
+            <source src="/blackhole.webm" type="video/webm" />
+          </video>
 
-          <div className="flex-1 h-px bg-gradient-to-l from-transparent to-white/30" />
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(to top, rgba(0, 0, 0, 0.99) 0%, rgba(0,0,0,0.85) 35%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0) 55%)",
+            }}
+          />
         </div>
       </div>
-      <GlobeScene /> 
     </section>
   );
 }
@@ -142,64 +480,92 @@ const handleToggle = () => {
 /* ========================
    Experience Card
 ======================== */
-function ExperienceCard({ exp, isActive }: any) {
+function ExperienceCard({ exp }: any) {
   return (
     <div
-      className={`
-        glass-container w-[85%] z-10
-        transition-all duration-700 ease-out
-        ${isActive ? "opacity-100 translate-y-0" : "opacity-60 translate-y-4"}
-      `}
-      style={{
-        borderRadius: "12px",
-        background: "rgba(255, 255, 255, 0.1)",
-        backdropFilter: "blur(18px)",
-        border: "1px solid rgba(255, 255, 255, 0.6)",
-      }}
+      className=" w-full h-full z-10"
+      // className="glass-container w-full h-full z-10"
+      // style={{
+      //   borderRadius: "20px",
+      //   background: "rgba(255, 255, 255, 0.1)",
+      //   backdropFilter: "blur(24px)",
+      //   border: "1px solid rgba(255, 255, 255, 0.6)",
+      //   boxShadow: "0 25px 80px rgba(0, 0, 0, 0.5), 0 0 60px rgba(255, 255, 255, 0.1), inset 0 0 40px rgba(255, 255, 255, 0.05)",
+      // }}
     >
-      <div className="glass-filter" />
+      {/* <div className="glass-filter" />
       <div className="glass-overlay" />
-      <div className="glass-specular" />
+      <div className="glass-specular" /> */}
 
-      <div className="glass-content flex flex-col gap-4 p-6">
-        <div className="flex items-center gap-3">
+      {/* <div className="glass-content flex flex-col h-full p-12 gap-8"> */}
+      <div className=" flex flex-col h-full p-12 gap-8">
+        {/* Header Section */}
+        <div className="flex items-center gap-6 pb-6 border-b border-white/20">
           {exp.logo && (
-            <Image
-             
-              src={exp.logo}
-              alt={exp.company}
-              width={42}
-              height={42}
-              className="rounded-md"
-            />
+            <div className="flex-shrink-0">
+              <Image
+                src={exp.logo}
+                alt={exp.company}
+                width={80}
+                height={80}
+                className="rounded-xl shadow-lg"
+              />
+            </div>
           )}
-          <h3 className="text-2xl font-semibold text-white">
-            {exp.company}
-          </h3>
+          <div className="flex-1">
+            <h3 className="text-5xl font-bold text-white mb-3 tracking-tight leading-tight">
+              {exp.company}
+            </h3>
+            <p className="text-2xl text-white/95 font-medium">
+              {exp.role}
+            </p>
+          </div>
         </div>
 
-        <p className="text-sl text-white/100">
-          {exp.role} • {exp.duration}
-        </p>
+        {/* Duration */}
+        <div className="flex items-center gap-3">
+          <div className="w-1.5 h-8 bg-gradient-to-b from-white to-white/50 rounded-full" />
+          <p className="text-xl text-white/90 font-medium tracking-wide">
+            {exp.duration}
+          </p>
+        </div>
 
-        <ul className="list-disc list-inside text-white/85 text-sm space-y-2">
-          {exp.description.map((d: string, i: number) => (
-            <li key={i}>{d}</li>
-          ))}
-        </ul>
+        {/* Description Section */}
+        <div className="flex-1 flex flex-col gap-4 ">
+          <h4 className="text-lg text-white/80 font-semibold uppercase tracking-wider mb-2">
+            Key Achievements
+          </h4>
+          <ul className="space-y-4">
+            {exp.description.map((d: string, i: number) => (
+              <li key={i} className="flex items-start gap-4">
+                <span className="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-white shadow-lg shadow-white/50" />
+                <span className="text-xl text-white/95 leading-relaxed font-normal">
+                  {d}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-        <div className="flex flex-wrap gap-2 pt-2">
-          {exp.technologies.map((tech: string) => (
-            <span
-              key={tech}
-              className="px-3 py-1 rounded-full bg-white/10 text-xs text-white hover:bg-white/15 transition-colors"
-            >
-              {tech}
-            </span>
-          ))}
+        {/* Technologies Section */}
+        <div className="pt-6 border-t border-white/20">
+          <h4 className="text-lg text-white/80 font-semibold uppercase tracking-wider mb-4">
+            Technologies
+          </h4>
+          <div className="flex flex-wrap gap-3">
+            {exp.technologies.map((tech: string) => (
+              <span
+                key={tech}
+                className="px-5 py-2.5 rounded-xl bg-white/15 text-base text-white font-medium hover:bg-white/25 transition-all duration-300 shadow-lg backdrop-blur-sm border border-white/20"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </div>
   );
 }
+
 

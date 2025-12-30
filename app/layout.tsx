@@ -1,17 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { caslon, inter, space,lavishly,fleur } from "./fonts";
 import "./globals.css";
 import "./glass.css";
 import StarsCanvas from "@/components/StarBackground";
+import Footer from "@/components/Footer";
 
 
-// import Footer from "@/components/Footer";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Space Portfolio",
-  description: "This is my portfolio",
+  title: "Shyam's Portfolio",
+  description: "Ghanashyam's Personal Portfolio Website showcasing work, projects, skills, and contact information.",
 };
 
 export default function RootLayout({
@@ -23,14 +21,26 @@ export default function RootLayout({
     <html lang="en">
 
       <body
-        className={`${inter.className} bg-black overflow-y-scroll overflow-x-hidden`}
+        className={` ${caslon.variable}
+          ${inter.variable}
+          ${space.variable}
+          ${lavishly.variable}
+          ${fleur.variable}
+
+          bg-black overflow-y-scroll overflow-x-hidden`}
       >
 
         <StarsCanvas />
 
 
         {children}
-        {/* <Footer /> */}
+       
+      
+          {/* Dotted Background */}
+          <div className="relative dotted-bg flex items-center justify-center">
+            <Footer />
+          </div>
+       
       </body>
     </html>
   );

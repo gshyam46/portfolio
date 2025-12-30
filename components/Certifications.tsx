@@ -92,6 +92,7 @@ export default function Certifications() {
           <div className="flex-1 h-px bg-gradient-to-l from-transparent to-white/30" />
         </div>
       </div>
+      
     </section>
   );
 }

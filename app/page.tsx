@@ -6,9 +6,6 @@ import { navItems } from "@/constants";
 import Hero from "@/components/Hero";
 
 
-import Image from "next/image";
-
-
 import Skills from "@/components/Skills";
 import Experience from "@/components/Experience";
 // import RecentProjects from "@/components/RecentProjects";
@@ -25,11 +22,11 @@ const Home = () => {
     <main className="h-full w-full">
       <div className="flex flex-col ">
         <FloatingNav navItems={navItems} />
-        <section id="home" className=" flex ">
+        <section id="home" className=" flex min-h-screen ">
           <Hero />
         </section>
 
-        <section id="experience" className=" flex items-center justify-center ">
+        <section id="experience" className="min-h-screen flex items-center justify-center ">
   
           <Experience />
         </section>
@@ -39,7 +36,7 @@ const Home = () => {
           <Skills />
         </section>
 
-        <section id="projects" className="min-h-screen flex items-center justify-center">
+        <section id="projects" className="min-h-screen flex ">
 
           <Projects />
         </section>

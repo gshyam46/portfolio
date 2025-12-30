@@ -26,6 +26,13 @@ const config = {
       },
     },
     extend: {
+       fontFamily: {
+        body: ["var(--font-caslon)"],
+        heading: ["var(--font-inter)"],
+        tech: ["var(--font-space)"],
+        cursive: ["var(--font-lavishly)"],
+        fancy: ["var(--font-fleur)"],
+      },
        backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

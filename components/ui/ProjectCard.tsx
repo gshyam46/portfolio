@@ -25,7 +25,7 @@ export default function ProjectCard({
       className="relative glass-card  cursor-pointer focus:outline-none focus:ring-2 focus:ring-white/30"
       style={{
         width: "550px",
-        height: "300px",
+        height: "500px",
         zIndex: active ? 10 : 1,
       }}
     >

@@ -15,7 +15,7 @@ import { PROJECTS } from "@/constants/projects";
 
 export default function Projects() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [showAll, setShowAll] = useState(true);
+  const [showAll, setShowAll] = useState(false);
 
   const inView = useInView(sectionRef, {
     margin: "-25% 0px -80% 0px",
@@ -69,7 +69,7 @@ const handleToggle = () => {
 
   return (
     <section ref={sectionRef} className="relative w-full z-30">
-      <div className="flex w-full justify-center mt-24 mb-5">
+      <div className="flex w-full mt-32 justify-center mb-5">
         <GlassHeading
           text="Projects"
           width="w-[100%]"
@@ -80,7 +80,7 @@ const handleToggle = () => {
       </div>
 
       {/* MAIN 3 PROJECTS */}
-      <div className="relative h-[360px] w-full flex justify-center">
+      <div className="relative min-h-[560px] w-full flex justify-center">
         {mainCards.map((project, i) => (
           <ProjectMotionCard
             key={project.id}
@@ -115,7 +115,7 @@ const handleToggle = () => {
                 height: { duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }
               }
             }}
-            className="w-full px-6 overflow-hidden"
+            className="w-full px-6 "
           >
             <div className="w-[95%] ml-12 mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 ">
               {extraCards.map((project, i) => (
@@ -139,7 +139,10 @@ const handleToggle = () => {
       </AnimatePresence>
 
       {/* VIEW MORE BUTTON */}
-      {/* <div className="flex justify-center mt-12">
+
+        <div className=" relative flex justify-center mt-12 ">
+        <div className="flex items-center gap-6 w-full max-w-md">
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent to-white/30 z-30" />
         <button
           onClick={handleToggle}
           className="px-6 py-2 text-sm text-white/60 hover:text-white
@@ -148,7 +151,9 @@ const handleToggle = () => {
         >
           {showAll ? "View less" : "View more"}
         </button>
-      </div> */}
+                  <div className="flex-1 h-px bg-gradient-to-l from-transparent to-white/30 z-30" />
+      </div>
+      </div>
     </section>
   );
 }

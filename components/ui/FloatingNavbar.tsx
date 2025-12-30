@@ -36,13 +36,13 @@ export const FloatingNav = ({
 
   // Icon mapping for navigation items
   const iconMap: { [key: string]: JSX.Element } = {
-    "Home": <HomeIcon className="w-4 h-4" />,
-    "Experience": <BriefcaseIcon className="w-4 h-4" />,
-    "Skills": <CogIcon className="w-4 h-4" />,
-    "Projects": <FolderIcon className="w-4 h-4" />,
-    "Certifications": <AcademicCapIcon className="w-4 h-4" />,
-    "Publications": <DocumentTextIcon className="w-4 h-4" />,
-    "Contact": <EnvelopeIcon className="w-4 h-4" />
+    "Home": <HomeIcon className="w-5 h-5" />,
+    "Experience": <BriefcaseIcon className="w-5 h-5" />,
+    "Skills": <CogIcon className="w-5 h-5" />,
+    "Projects": <FolderIcon className="w-5 h-5" />,
+    "Certifications": <AcademicCapIcon className="w-5 h-5" />,
+    "Publications": <DocumentTextIcon className="w-5 h-5" />,
+    "Contact": <EnvelopeIcon className="w-5 h-5" />
   };
 
   // useMotionValueEvent(scrollYProgress, "change", (current) => {
@@ -270,7 +270,7 @@ export const FloatingNav = ({
 
                 {/* Text with animation */}
                 <motion.span
-                  className="relative text-sm font-medium whitespace-nowrap"
+                  className="relative text-sm font-body whitespace-nowrap"
                   animate={{
                     y: isHovered ? -1 : 0,
                   }}
