@@ -347,7 +347,7 @@ useEffect(() => {
   });
 
   return () => unsubscribe();
-}, [smoothProgress, currentIndex, total]);
+}, [rawScrollDelta, scrollYProgress, smoothProgress, currentIndex, total]);
 
 
 
