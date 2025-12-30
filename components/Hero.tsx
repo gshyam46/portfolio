@@ -19,7 +19,7 @@ const Hero = () => {
       <div className="h-full w-full flex flex-col justify-center text-start">
 
  <p className=" mt-6 font-tech text-3xl text-white my-6 ">
-          Hi I'm
+          Hi I&apos;m
         </p>
         {/* Name with animated gradient */}
         <h1 className=" text-7xl font-bold text-white flex flex-row">
