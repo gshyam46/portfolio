@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
 import GlassHeading from "./ui/GlassHeading";
 
+
 export default function Skills() {
   const filteredSkills = SKILL_CATEGORIES.filter(s => s.id !== "all");
   const [active, setActive] = useState(filteredSkills[0]?.id || "frontend");
@@ -32,8 +33,8 @@ export default function Skills() {
   };
 
   return (
-    <section className="relative w-[90%] min-h-[80vh] flex flex-col justify-center items-center py-12 mt-25 px-4 z-30">
-                            
+    <section className="relative w-[90%] min-h-[80vh] flex flex-col justify-center items-center top-3 px-4 z-30">   
+                          <div className="absolute  flex flex-col justify-center items-center " >   
                <GlassHeading
                       className=" mb-16"
                           text="Skills & Technologies"
@@ -139,7 +140,7 @@ export default function Skills() {
               </motion.div>
             ))}
           </motion.div>
-      
+      </div>
       </div>
     </section>
   );

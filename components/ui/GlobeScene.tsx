@@ -1,43 +1,362 @@
+
+
+// "use client";
+
+// import { useEffect, useRef } from "react";
+// import * as THREE from "three";
+// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+
+// export default function GlobeScene() {
+//   const containerRef = useRef<HTMLDivElement>(null);
+//   const animationFrameRef = useRef<number>();
+// useEffect(() => {
+//   const container = containerRef.current;
+//   if (!container) return;
+
+//     // Scene setup
+//     const scene = new THREE.Scene();
+//     const camera = new THREE.PerspectiveCamera(
+//       45,
+//       containerRef.current.clientWidth / containerRef.current.clientHeight,
+//       0.1,
+//       1000
+//     );
+//     camera.position.z = 3;
+
+//     const renderer = new THREE.WebGLRenderer({ 
+//       antialias: true, 
+//       alpha: true 
+//     });
+//     renderer.setSize(
+//       containerRef.current.clientWidth,
+//       containerRef.current.clientHeight
+//     );
+//     renderer.setPixelRatio(window.devicePixelRatio);
+//     containerRef.current.appendChild(renderer.domElement);
+
+//     // OrbitControls for interactivity
+//     const controls = new OrbitControls(camera, renderer.domElement);
+//     controls.enableDamping = true;
+//     controls.dampingFactor = 0.05;
+//     controls.enableZoom = false;
+//     controls.minDistance = 1.5;
+//     controls.maxDistance = 5;
+//     controls.autoRotate = true;
+//     controls.autoRotateSpeed = 0.5;
+//     controls.enablePan = false;
+
+//     // Lights
+//     const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+//     scene.add(ambientLight);
+
+//     const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+//     directionalLight.position.set(5, 3, 5);
+//     scene.add(directionalLight);
+
+//     // Earth sphere
+//     const geometry = new THREE.SphereGeometry(1, 64, 64);
+    
+//     const textureLoader = new THREE.TextureLoader();
+    
+//     // Load earth texture
+//     const earthTexture = textureLoader.load("/earth-blue-marble.jpg");
+//     const bumpTexture = textureLoader.load("/earth-topology.png");
+    
+//     const earthMaterial = new THREE.MeshPhongMaterial({
+//       map: earthTexture,
+//       bumpMap: bumpTexture,
+//       bumpScale: 0.05,
+//       specular: new THREE.Color(0x333333),
+//       shininess: 5,
+//     });
+
+//     const earthMesh = new THREE.Mesh(geometry, earthMaterial);
+//     scene.add(earthMesh);
+
+//     // Clouds layer
+//     const cloudGeometry = new THREE.SphereGeometry(1.01, 64, 64);
+//     const cloudTexture = textureLoader.load("/clouds.png");
+    
+//     const cloudMaterial = new THREE.MeshPhongMaterial({
+//       map: cloudTexture,
+//       transparent: true,
+//       opacity: 0.8,
+//       depthWrite: false,
+//     });
+
+//     const cloudMesh = new THREE.Mesh(cloudGeometry, cloudMaterial);
+//     scene.add(cloudMesh);
+
+//     // Atmosphere glow
+//     const atmosphereGeometry = new THREE.SphereGeometry(1.15, 64, 64);
+//     const atmosphereMaterial = new THREE.ShaderMaterial({
+//       vertexShader: `
+//         varying vec3 vNormal;
+//         void main() {
+//           vNormal = normalize(normalMatrix * normal);
+//           gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+//         }
+//       `,
+//       fragmentShader: `
+//         varying vec3 vNormal;
+//         void main() {
+//           float intensity = pow(0.6 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 2.0);
+//           gl_FragColor = vec4(0.3, 0.6, 1.0, 1.0) * intensity;
+//         }
+//       `,
+//       blending: THREE.AdditiveBlending,
+//       side: THREE.BackSide,
+//       transparent: true,
+//     });
+
+//     const atmosphereMesh = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
+//     scene.add(atmosphereMesh);
+
+//     // Animation
+//     const animate = () => {
+//       controls.update(); // Update controls for damping and auto-rotate
+      
+//       // Slight cloud rotation for realism
+//       cloudMesh.rotation.y += 0.0002;
+      
+//       renderer.render(scene, camera);
+//       animationFrameRef.current = requestAnimationFrame(animate);
+//     };
+//     animate();
+
+//     // Handle resize
+//     const handleResize = () => {
+//       if (!containerRef.current) return;
+      
+//       camera.aspect = containerRef.current.clientWidth / containerRef.current.clientHeight;
+//       camera.updateProjectionMatrix();
+//       renderer.setSize(
+//         containerRef.current.clientWidth,
+//         containerRef.current.clientHeight
+//       );
+//     };
+
+//     window.addEventListener("resize", handleResize);
+
+//     // Cleanup
+//     return () => {
+//        if (container) {
+//       container.removeChild(renderer.domElement);
+//     }
+//       window.removeEventListener("resize", handleResize);
+//       if (animationFrameRef.current) {
+//         cancelAnimationFrame(animationFrameRef.current);
+//       }
+//       controls.dispose();
+//       if (containerRef.current && renderer.domElement) {
+//         containerRef.current.removeChild(renderer.domElement);
+//       }
+//       renderer.dispose();
+//       geometry.dispose();
+//       earthMaterial.dispose();
+//       cloudGeometry.dispose();
+//       cloudMaterial.dispose();
+//       atmosphereGeometry.dispose();
+//       atmosphereMaterial.dispose();
+//     };
+
+// }, []);
+
+//   return (
+//     <div className="relative w-full h-[50vh] top-[450px]">
+//       {/* Globe Container - Clipped at bottom */}
+//       <div
+//       ref={containerRef}
+//       className="absolute inset-0"
+//       style={{
+//         filter:
+//         "brightness(1.2) saturate(1.15) contrast(1.1) blur(0px) drop-shadow(0 0 2px rgba(59, 130, 246, 0.5))",
+//         top: 0,
+//         scale: "2.1",
+//         clipPath: "inset(0 0 60% 0)",
+//       }}
+//       />
+//     </div>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 "use client";
 
 import { useEffect, useRef } from "react";
-import Globe from "react-globe.gl";
 import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 export default function GlobeScene() {
-  const globeRef = useRef<any>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const animationFrameRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (!globeRef.current) return;
+    const container = containerRef.current;
+    if (!container) return;
 
-    const globe = globeRef.current;
+    // --- Scene setup ---
+    const scene = new THREE.Scene();
 
-    globe.controls().autoRotate = true;
-    globe.controls().autoRotateSpeed = 0.35;
+    const camera = new THREE.PerspectiveCamera(
+      45,
+      container.clientWidth / container.clientHeight,
+      0.1,
+      1000
+    );
+    camera.position.z = 3;
 
-    const CLOUDS_IMG_URL = "/clouds.png";
-
-    new THREE.TextureLoader().load(CLOUDS_IMG_URL, texture => {
-      const clouds = new THREE.Mesh(
-        new THREE.SphereGeometry(globe.getGlobeRadius() * 1.01, 75, 75),
-        new THREE.MeshPhongMaterial({
-          map: texture,
-          transparent: true,
-          opacity: 0.8,
-        })
-      );
-
-      globe.scene().add(clouds);
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
     });
+
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
+
+    // Controls
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.enableZoom = false;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.5;
+    controls.enablePan = false;
+
+    // Lights
+    scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(5, 3, 5);
+    scene.add(directionalLight);
+
+    // Earth
+    const geometry = new THREE.SphereGeometry(1, 64, 64);
+    const textureLoader = new THREE.TextureLoader();
+
+    const earthTexture = textureLoader.load("/earth-blue-marble.jpg");
+    const bumpTexture = textureLoader.load("/earth-topology.png");
+
+    const earthMaterial = new THREE.MeshPhongMaterial({
+      map: earthTexture,
+      bumpMap: bumpTexture,
+      bumpScale: 0.05,
+      specular: new THREE.Color(0x333333),
+      shininess: 5,
+    });
+
+    const earthMesh = new THREE.Mesh(geometry, earthMaterial);
+    scene.add(earthMesh);
+
+    // Clouds
+    const cloudGeometry = new THREE.SphereGeometry(1.01, 64, 64);
+    const cloudTexture = textureLoader.load("/clouds.png");
+
+    const cloudMaterial = new THREE.MeshPhongMaterial({
+      map: cloudTexture,
+      transparent: true,
+      opacity: 0.8,
+      depthWrite: false,
+    });
+
+    const cloudMesh = new THREE.Mesh(cloudGeometry, cloudMaterial);
+    scene.add(cloudMesh);
+
+    // Atmosphere
+    const atmosphereGeometry = new THREE.SphereGeometry(1.15, 64, 64);
+    const atmosphereMaterial = new THREE.ShaderMaterial({
+      vertexShader: `
+        varying vec3 vNormal;
+        void main() {
+          vNormal = normalize(normalMatrix * normal);
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        varying vec3 vNormal;
+        void main() {
+          float intensity = pow(0.6 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 2.0);
+          gl_FragColor = vec4(0.3, 0.6, 1.0, 1.0) * intensity;
+        }
+      `,
+      blending: THREE.AdditiveBlending,
+      side: THREE.BackSide,
+      transparent: true,
+    });
+
+    const atmosphereMesh = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
+    scene.add(atmosphereMesh);
+
+    // Animation loop
+    const animate = () => {
+      controls.update();
+      cloudMesh.rotation.y += 0.0002;
+      renderer.render(scene, camera);
+      animationFrameRef.current = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    // Resize handler
+    const handleResize = () => {
+      if (!container) return;
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", handleResize);
+
+      if (animationFrameRef.current !== null) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+
+      controls.dispose();
+      renderer.dispose();
+
+      geometry.dispose();
+      earthMaterial.dispose();
+      cloudGeometry.dispose();
+      cloudMaterial.dispose();
+      atmosphereGeometry.dispose();
+      atmosphereMaterial.dispose();
+
+      if (container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement);
+      }
+    };
   }, []);
 
   return (
-    <div className="w-full h-full">
-      <Globe
-        ref={globeRef}
-        globeImageUrl="/earth.jpg"
-        bumpImageUrl="/earth-topology.png"
-        backgroundColor="rgba(0,0,0,0)"
+    <div className="relative w-full h-[50vh] top-[450px]">
+      <div
+        ref={containerRef}
+        className="absolute inset-0"
+        style={{
+          filter:
+            "brightness(1.2) saturate(1.15) contrast(1.1) blur(0px) drop-shadow(0 0 2px rgba(59, 130, 246, 0.5))",
+          scale: "2.1",
+          clipPath: "inset(0 0 60% 0)",
+        }}
       />
     </div>
   );

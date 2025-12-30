@@ -16,6 +16,12 @@ export interface SkillCategory {
 }
 
 export const SKILL_CATEGORIES: SkillCategory[] = [
+    {
+    id: "all",
+    title: "All Skills",
+    icon: "mdi:star",
+    skills: [],
+  },
   {
     id: "programming",
     title: "Programming Languages",
@@ -165,5 +171,10 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
 ];
 
 
+// Generate All Skills category dynamically
+const allSkills = SKILL_CATEGORIES.filter(cat => cat.id !== 'all')
+  .flatMap(cat => cat.skills);
+
+SKILL_CATEGORIES[0].skills = allSkills;
 
 export const SKILLS = [...SKILL_CATEGORIES];
