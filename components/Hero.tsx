@@ -29,7 +29,7 @@ const Hero = () => {
                   "brightness(0.75) sepia(1) hue-rotate(-10deg) saturate(6) contrast(1.3)",
                               }}
             >
-              <source src="/blackhole.webm" type="video/webm" />
+              <source src="/portfolio/blackhole.webm" type="video/webm" />
             </video>
     </section>
   );
