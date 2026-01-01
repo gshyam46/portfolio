@@ -4,6 +4,7 @@ import "./globals.css";
 import "./glass.css";
 
 import ClientLayout from "@/components/ClientLayout";
+import CursorTrail from "@/components/ui/CursorTrail";
 
 export const metadata: Metadata = {
   title: "Shyam's Portfolio",
@@ -22,6 +23,7 @@ export default function RootLayout({
         className={`${dmSans.variable} ${plex.variable} ${garamond.variable}
         bg-black overflow-x-hidden`}
       >
+          <CursorTrail />
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
