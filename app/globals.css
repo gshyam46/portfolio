@@ -10,7 +10,7 @@
 html,
 body {
   background-color: #000;
- cursor: none;
+ cursor: none !important;
 }
 
 .button-primary {
@@ -252,11 +252,11 @@ html {
   font-family: var(--font-heading);
   background: linear-gradient(
     90deg,
-    #b8860b 0%,     
-    #ffb347 35%,   
+    #ffd66f 0%,     
+    #f3c035 35%,   
     #ffb342 60%,    
     #ffb347 85%,
-    #b8860b 100%
+    #ff6600 100%
   );
 
   background-size: 300% 100%;
