@@ -18,7 +18,7 @@ const Home=()=> {
 useEffect(() => {
   const sectionMap = [
     { id: "home", index: 0 },
-    { id: "experience-start", index: 1 },
+    { id: "experience", index: 1 },
     { id: "skills", index: 2 },
     { id: "projects", index: 3 },
     { id: "certifications", index: 4 },
@@ -35,6 +35,7 @@ useEffect(() => {
           );
           if (match) {
             setActiveIndex(match.index);
+            console.log("Active section:", match.id);
           }
         }
       });

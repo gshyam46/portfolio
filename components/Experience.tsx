@@ -118,7 +118,7 @@ export default function Experience() {
       className="relative w-full"
       style={{ height: `${EXPERIENCES.length * 100}vh` }}
     >
-            <div id="experience-start" className="h-[1px]" />
+            <div id="experience" className="h-[1px]" />
       {/* Sticky viewport */}
       <div className="sticky top-0 h-screen flex flex-col justify-center z-30 px-4 md:px-0">
         {/* Experience Display with enhanced scroll feedback */}

@@ -41,9 +41,9 @@ export default function Certifications() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full min-h-screen responsive-px responsive-py no-horizontal-scroll"
+      className="relative w-full min-h-[100vh] pt-20"
     >
-      <div className="flex justify-center mt-28 mb-8 md:mb-10">
+      <div className="flex justify-center mb-10">
         <GlassHeading
           text="Certifications"
           width="w-[100%]"
@@ -53,7 +53,7 @@ export default function Certifications() {
         />
       </div>
 
-      <div className="flex flex-col gap-6 md:gap-8 lg:gap-10 max-w-6xl mx-auto">
+      <div className="flex flex-col gap-10">
         <AnimatePresence mode="popLayout">
           {CERTIFICATIONS.slice(0, visibleCount).map((cert, index) => (
             <CertificationCard
@@ -67,21 +67,23 @@ export default function Certifications() {
         </AnimatePresence>
       </div>
 
-      <div className="flex justify-center mt-6 md:mt-8 px-4">
-        <div className="flex items-center gap-4 md:gap-6 w-full max-w-md">
+      <div className="flex justify-center mt-8 ">
+        <div className="flex items-center gap-6 w-full max-w-md">
           <div className="flex-1 h-px bg-gradient-to-r from-transparent to-white/30" />
 
           {visibleCount < CERTIFICATIONS.length ? (
             <button
               onClick={handleLoadMore}
-              className="relative z-30 pointer-events-auto px-4 md:px-6 py-2 text-sm text-white/60 hover:text-white bg-transparent hover:bg-white/5 active:bg-white/10 rounded transition-all duration-300 font-medium tracking-wide cursor-pointer active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30 touch-target"
+               className="relative z-30 pointer-events-auto px-6 py-2 text-sm text-white/60 hover:text-white bg-transparent hover:bg-white/5 rounded transition-all duration-300 font-medium tracking-wide cursor-pointer active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+             
             >
               View more
             </button>
           ) : (
             <button
               onClick={handleViewLess}
-              className="relative z-30 pointer-events-auto px-4 md:px-6 py-2 text-sm text-white/60 hover:text-white bg-transparent hover:bg-white/5 active:bg-white/10 rounded transition-all duration-300 font-medium tracking-wide cursor-pointer active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30 touch-target"
+               className="relative z-30 pointer-events-auto px-6 py-2 text-sm text-white/60 hover:text-white bg-transparent hover:bg-white/5 rounded transition-all duration-300 font-medium tracking-wide cursor-pointer active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+             
             >
               View less
             </button>
