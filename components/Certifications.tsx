@@ -1,33 +1,49 @@
+
 "use client";
 
-import { useRef } from "react";
-import { useScroll, useTransform, useSpring } from "framer-motion";
+import { useState, useRef } from "react";
+import { AnimatePresence } from "framer-motion";
+import { CERTIFICATIONS } from "@/constants/certifications";
 import CertificationCard from "./ui/CertificationCard";
 import GlassHeading from "./ui/GlassHeading";
-import { CERTIFICATIONS } from "@/constants/certifications";
+
+const INITIAL_COUNT = 4;
+
 
 export default function Certifications() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
+  const [isCollapsing, setIsCollapsing] = useState(false);
 
-  // Scroll tracking
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
+  const prevCountRef = useRef(INITIAL_COUNT);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
 
-  // Amplify scroll movement
-  const amplified = useSpring(scrollYProgress, {
-    stiffness: 180,
-    damping: 30,
-  });
+  const handleLoadMore = () => {
+    setIsCollapsing(false);
+    setVisibleCount((prev) => {
+      prevCountRef.current = prev;
+      return  CERTIFICATIONS.length;
+    });
+  };
+
+  const handleViewLess = () => {
+    setIsCollapsing(true);
+
+    // Smooth scroll back to section top
+    sectionRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+
+    prevCountRef.current = INITIAL_COUNT;
+    setVisibleCount(INITIAL_COUNT);
+  };
 
   return (
     <section
       ref={sectionRef}
-      className="relative w-full min-h-[120vh] py-24"
+      className="relative w-full min-h-screen responsive-px responsive-py no-horizontal-scroll"
     >
-      {/* Heading */}
-      <div className="flex justify-center mb-14">
+      <div className="flex justify-center mt-28 mb-8 md:mb-10">
         <GlassHeading
           text="Certifications"
           width="w-[100%]"
@@ -37,34 +53,45 @@ export default function Certifications() {
         />
       </div>
 
-      {/* Cards */}
-      <div className="flex flex-col gap-14">
-        {CERTIFICATIONS.map((cert, i) => {
-          // Each card animates slightly differently
-          const y = useTransform(
-            amplified,
-            [0, 1],
-            [40 + i * 10, -20 - i * 10]
-          );
-
-          const opacity = useTransform(
-            amplified,
-            [0.05, 0.25],
-            [0, 1]
-          );
-
-          return (
+      <div className="flex flex-col gap-6 md:gap-8 lg:gap-10 max-w-6xl mx-auto">
+        <AnimatePresence mode="popLayout">
+          {CERTIFICATIONS.slice(0, visibleCount).map((cert, index) => (
             <CertificationCard
               key={cert.id}
               cert={cert}
-              style={{
-                y,
-                opacity,
-              }}
+              index={index}
+              animateIn={index >= prevCountRef.current}
+              isCollapsing={isCollapsing}
             />
-          );
-        })}
+          ))}
+        </AnimatePresence>
       </div>
+
+      <div className="flex justify-center mt-6 md:mt-8 px-4">
+        <div className="flex items-center gap-4 md:gap-6 w-full max-w-md">
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent to-white/30" />
+
+          {visibleCount < CERTIFICATIONS.length ? (
+            <button
+              onClick={handleLoadMore}
+              className="relative z-30 pointer-events-auto px-4 md:px-6 py-2 text-sm text-white/60 hover:text-white bg-transparent hover:bg-white/5 active:bg-white/10 rounded transition-all duration-300 font-medium tracking-wide cursor-pointer active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30 touch-target"
+            >
+              View more
+            </button>
+          ) : (
+            <button
+              onClick={handleViewLess}
+              className="relative z-30 pointer-events-auto px-4 md:px-6 py-2 text-sm text-white/60 hover:text-white bg-transparent hover:bg-white/5 active:bg-white/10 rounded transition-all duration-300 font-medium tracking-wide cursor-pointer active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30 touch-target"
+            >
+              View less
+            </button>
+          )}
+
+          <div className="flex-1 h-px bg-gradient-to-l from-transparent to-white/30" />
+        </div>
+      </div>
+      
     </section>
   );
 }
+

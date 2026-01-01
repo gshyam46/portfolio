@@ -19,6 +19,7 @@ import {
 
 export const FloatingNav = ({
   navItems,
+  activeIndex,
   className,
 }: {
   navItems: {
@@ -26,8 +27,10 @@ export const FloatingNav = ({
     link: string;
     icon?: JSX.Element;
   }[];
+  activeIndex: number;
   className?: string;
 }) => {
+
   const { scrollYProgress } = useScroll();
   const [visible, setVisible] = useState(true);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -78,42 +81,6 @@ export const FloatingNav = ({
   //   return () => clearInterval(timer);
   // }, [lastScrollTime]);
 
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    const sections = navItems.map(item =>
-      document.querySelector(item.link)
-    );
-
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const index = navItems.findIndex(
-              item => item.link === `#${entry.target.id}`
-            );
-            if (index !== -1) {
-              console.log('Section in view:', entry.target.id, 'index:', index);
-              setActiveIndex(index);
-            }
-          }
-        });
-      },
-      {
-        threshold: 0.3,
-        rootMargin: '-20% 0px -20% 0px'
-      }
-    );
-
-    sections.forEach(section => {
-      if (section) {
-        console.log('Observing section:', section.id);
-        observer.observe(section);
-      }
-    });
-
-    return () => observer.disconnect();
-  }, [navItems]);
 
   return (
     <AnimatePresence mode="wait">
