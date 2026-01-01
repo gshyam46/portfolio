@@ -450,7 +450,7 @@ useEffect(() => {
         </div>
 
         {/* Background Video (UNCHANGED) */}
-        <div className="absolute mt-28 top-[700px] left-0 w-full z-[0] overflow-hidden">
+        <div className="absolute  top-[700px] left-0 w-full z-[0] overflow-hidden">
           <video
             autoPlay
             muted

@@ -33,30 +33,10 @@ export default function ResumeModal() {
   return (
     <>
       {/* BUTTON */}
-      <button
-        onClick={() => setOpen(true)}
-        className="
-          relative overflow-hidden px-8 py-3 rounded-full
-          text-white font-medium tracking-wide
-          bg-white/10 backdrop-blur-md
-          border border-white/20
-          hover:border-white/40
-          transition-all duration-300
-          group mt-5
-        "
-      >
-        <span className="relative z-10 text-sl">View Resume </span>
-        <Icon icon="mdi:arrow-right" className="absolute right-8 top-1/2 -translate-y-1/2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-
-        <span
-          className="
-            absolute inset-0 
-            bg-gradient-to-r from-purple-500/30 via-pink-500/30 to-blue-500/30
-            opacity-0 group-hover:opacity-100
-            blur-xl transition duration-500
-          "
-        />
-      </button>
+      <button  onClick={() => setOpen(true)} className="golden-btn">
+  <span className="golden-btn-text">View Resume →</span>
+  <span className="golden-btn-border" />
+</button>
 
       {/* MODAL */}
       {mounted &&

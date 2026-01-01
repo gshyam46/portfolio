@@ -1,90 +1,71 @@
-import React from "react";
-// import HeroContent from "./ui//HeroContent";
-// import LiquidBlob from "./ui/LiquidBlob";
 import Image from "next/image";
 import ResumeModal from "./ui/ResumeModal";
 
 const Hero = () => {
   return (
-    <section
-      className="w-full"
-      id="about-me"
-    >
+  <section
+  id="about-me"
+  className="w-full min-h-[720px] flex items-center"
+>
+  <div className="w-full flex items-center justify-between ml-10 px-10 lg:px-32">
 
-      {/* Left: Text */}
-      <div className="relative  min-h-[720px] flex flex-col lg:flex-row w-full">
+    {/* LEFT CONTENT */}
+    <div className="flex flex-col text-white max-w-xl gap-3">
+      <p className="font-tech text-3xl">Hi I&apos;m,</p>
 
-        <div className="flex flex-row items-center justify-center pl-32 mt-10 w-full z-[20]">
-       
-      <div className="h-full w-full flex flex-col justify-center text-start">
+      <h1 className="text-7xl font-bold leading-tight">
+        <span className="gold-gradient-text">GHANASHYAM</span>
+      </h1>
 
- <p className=" mt-6 font-tech text-3xl text-white my-6 ">
-          Hi I&apos;m
-        </p>
-        {/* Name with animated gradient */}
-        <h1 className=" text-7xl font-bold text-white flex flex-row">
+      <h2 className="flex items-end gap-4 mt-6">
+        <span className="font-body text-4xl">AI</span>
+        <span className="font-body text-4xl">Software Engineer</span>
+      </h2>
 
-          <span className="font-heading bg-clip-text text-transparent bg-gradient-to-r from-red-600 via-orange-400 to-yellow-300 animate-gradient-x">
-            GHANASHYAM 
-          </span>
-        </h1>
-        {/* <Roles text="AI SOFTWARE ENGINEER" 
-                    fontSize="2rem"
-                      height="h-[60px]"/> */}
-                      <ResumeModal/>
-      </div>
-    </div>
-        <div className="flex flex-row  mt-16 w-full z-[20] ">
-          <h1 className=" flex mt-16 pt-10 text-white ">
-
-            <span className="font-body pr-5 pt-1 text-6xl">
-              AI
-            </span>
-            <span className="font-cursive  text-7xl">
-              Software Engineer
-            </span>
-          </h1>
-        </div>
-        {/* Right: Avatar + Consciousness Blob */}
-        <div className="mt-20 lg:mt-0 flex justify-center w-full items-center justify-between z-[20]">
-          {/* <hero photo /> */}
-          {/* <LiquidBlob /> */}
-        {/* <div className="relative w-80 h-80 flex items-center justify-center">
-             
-            <div className="w-full h-full rounded-full bg-black flex items-center justify-center overflow-hidden">
-              <Image
-          src="/shyam.jpg"
-          alt="Ghanashyam"
-          width={320}
-          height={320}
-          className="rounded-full object-cover object-bottom"
-              />
-            </div>
-          
-        </div> */}
-        </div>
-      </div>
-      {/* Description */}
-      <p className="font-tech text-2xl text-white text-center my-6 px-16 leading-relaxed">
-        I design and engineer{" "}
-        <span className="text-purple-400 font-semibold">
-          AI-driven software systems and architectures
+      <p className="font-tech text-gray-400 text-2xl mt-6 leading-relaxed">
+        I design{" "}
+        <span className="text-gray-300">
+          intelligent software systems and architectures
         </span>.
-        <br />
-        <span className="block mt-3 text-white/80">
-          With a strong inclination toward{" "}
-          <span className="text-purple-400 font-semibold">AI research</span>,{" "}
-          <span className="text-purple-400 font-semibold">system intelligence</span>, and{" "}
-          <span className="text-purple-400 font-semibold">scalable problem-solving</span>.
-          <br />
-        </span>
-        I strive for {" "}
-        <span className="text-purple-400 font-semibold">knowledge </span>,{" "}
-        and {" "}
-        <span className="text-purple-400 font-semibold">growth </span>.{" "}
       </p>
 
-    </section>
+      <div className="mt-8">
+        <ResumeModal />
+      </div>
+    </div>
+
+    {/* RIGHT IMAGE */}
+    <div className="relative flex justify-end items-center mr-10 w-full max-w-lg">
+
+      {/* Glow */}
+      <div className="absolute -inset-12 rounded-full
+        bg-[radial-gradient(circle,rgba(255,180,80,0.35),transparent_70%)]
+        blur-3xl opacity-80" />
+
+      <div className="relative w-full max-w-md">
+        <Image
+          src="/shyam-art-nobg.png"
+          alt="Ghanashyam"
+          width={350}
+          height={350}
+          priority
+          className="object-cover w-full h-auto"
+        />
+
+        <div className="pointer-events-none absolute bottom-0 left-0 w-full h-36 bg-gradient-to-t from-black to-transparent" />
+      </div>
+    </div>
+
+  </div>
+
+  {/* Bottom line aligned with left */}
+  <div className="absolute bottom-28  lg:left-36">
+    <p className="font-tech text-gray-400 text-2xl max-w-3xl">
+      Focused on AI systems, applied research, and scalable engineering.
+    </p>
+  </div>
+</section>
+
   );
 };
 

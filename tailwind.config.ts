@@ -26,13 +26,16 @@ const config = {
       },
     },
     extend: {
-       fontFamily: {
-        body: ["var(--font-caslon)"],
-        heading: ["var(--font-inter)"],
-        tech: ["var(--font-space)"],
-        cursive: ["var(--font-lavishly)"],
-        fancy: ["var(--font-fleur)"],
-      },
+  
+
+fontFamily: {
+  body: ["var(--font-plex)"],        // IBM Plex Sans → clean, professional UI
+  heading: ["var(--font-garamond)"], // EB Garamond → elegant, editorial headings
+  tech: ["var(--font-dm)"],          // DM Sans → modern, minimal accents
+  accent: ["var(--font-garamond)"],  // reuse Garamond for refined emphasis
+},
+
+
        backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
@@ -94,6 +97,11 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        "border-beam": {
+          "100%": {
+            "offset-distance": "100%",
+          },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -171,6 +179,7 @@ const config = {
         fifth: "moveInCircle 20s ease infinite",
         scroll:
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
+            "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
       },
     },
   },

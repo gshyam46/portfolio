@@ -1,27 +1,53 @@
-import { Libre_Caslon_Text, Inter, Quicksand,Lavishly_Yours,Fleur_De_Leah } from "next/font/google";
+// import {
+//   Libre_Caslon_Text,
+//   Inter,
+//   Space_Grotesk,
+//   Playfair_Display,
+// } from "next/font/google";
 
-export const caslon = Libre_Caslon_Text({
+
+// export const caslon = Libre_Caslon_Text({
+//   subsets: ["latin"],
+//   weight: ["400", "700"],
+//   variable: "--font-caslon",
+// });
+
+// export const inter = Inter({
+//   subsets: ["latin"],
+//   variable: "--font-inter",
+// });
+
+// export const space = Space_Grotesk({
+//   subsets: ["latin"],
+//   weight: ["400", "500", "600"],
+//   variable: "--font-space",
+// });
+
+// export const playfair = Playfair_Display({
+//   subsets: ["latin"],
+//   weight: ["500", "600", "700"],
+//   variable: "--font-playfair",
+// });
+import {
+  EB_Garamond,
+  IBM_Plex_Sans,
+  DM_Sans,
+} from "next/font/google";
+
+export const garamond = EB_Garamond({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-caslon",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-garamond",
 });
 
-export const inter = Inter({
+export const plex = IBM_Plex_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600"],
+  variable: "--font-plex",
 });
 
-export const space = Quicksand({
+export const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-space",
-});
-export const lavishly = Lavishly_Yours({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-lavishly",
-});
-export const fleur = Fleur_De_Leah({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-fleur",
+  weight: ["400", "500", "600"],
+  variable: "--font-dm",
 });

@@ -14,13 +14,14 @@ import Projects from "@/components/Projects";
 import Certifications from "@/components/Certifications";
 import Publications from "@/components/Publications";
 import Contact from "@/components/Contact";
-import GlobeScene from "@/components/ui/GlobeScene";
+// import GlobeScene from "@/components/ui/GlobeScene";
 
 const Home = () => {
   return (
 
     <main className="h-full w-full">
       <div className="flex flex-col ">
+        
         <FloatingNav navItems={navItems} />
         <section id="home" className=" flex min-h-screen ">
           <Hero />
