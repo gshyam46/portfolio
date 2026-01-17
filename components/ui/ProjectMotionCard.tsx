@@ -1,6 +1,7 @@
 "use client";
 import { MotionValue, motion, useSpring, useTransform } from "framer-motion";
 import ProjectCard from "./ProjectCard";
+import { useState, useRef } from "react";
 type ProjectMotionCardProps = {
   project: any;
   index: number;
@@ -8,6 +9,7 @@ type ProjectMotionCardProps = {
   deck: number[][];
   grid: number[][];
   inView: boolean;
+  onClick: () => void;
 };
 
 export default function ProjectMotionCard({
@@ -17,7 +19,9 @@ export default function ProjectMotionCard({
   deck,
   grid,
   inView,
-}: ProjectMotionCardProps)  {
+  onClick,
+}: ProjectMotionCardProps) {
+
   const SPRING = { stiffness: 140, damping: 26 };
 
   const x = useSpring(
@@ -57,7 +61,13 @@ export default function ProjectMotionCard({
       }}
       className="absolute top-0 -translate-x-1/2"
     >
-      <ProjectCard project={project} />
+      <ProjectCard
+        project={project}
+        onClick={onClick}
+        onReadMore={onClick}
+      />
+
     </motion.div>
+
   );
 }

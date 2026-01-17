@@ -12,10 +12,22 @@ import GlassHeading from "./ui/GlassHeading";
 import ProjectMotionCard from "./ui/ProjectMotionCard";
 import ProjectCard from "./ui/ProjectCard";
 import { PROJECTS } from "@/constants/projects";
+import { ProjectModal } from "./ui/ProjectModal";
 
 export default function Projects() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [showAll, setShowAll] = useState(false);
+  const [activeProject, setActiveProject] = useState<any>(null);
+  const lastFocusedRef = useRef<HTMLDivElement | null>(null);
+
+  const openProject = (project: any, el?: HTMLDivElement | null) => {
+    if (el) lastFocusedRef.current = el;
+    setActiveProject(project);
+  };
+
+  const closeProject = () => {
+    setActiveProject(null);
+  };
 
   const inView = useInView(sectionRef, {
     margin: "-25% 0px -80% 0px",
@@ -50,21 +62,21 @@ export default function Projects() {
 
   const mainCards = PROJECTS.slice(0, 3);
   const extraCards = PROJECTS.slice(3);
-const handleToggle = () => {
-  if (showAll) {
-    // Scroll smoothly BEFORE collapsing
-    sectionRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+  const handleToggle = () => {
+    if (showAll) {
+      // Scroll smoothly BEFORE collapsing
+      sectionRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
 
-    setTimeout(() => {
-      setShowAll(false);
-    }, 350); // sync with animation
-  } else {
-    setShowAll(true);
-  }
-};
+      setTimeout(() => {
+        setShowAll(false);
+      }, 350); // sync with animation
+    } else {
+      setShowAll(true);
+    }
+  };
 
 
   return (
@@ -90,6 +102,7 @@ const handleToggle = () => {
             deck={deck}
             grid={grid}
             inView={inView}
+            onClick={() => openProject(project)}
           />
         ))}
       </div>
@@ -99,25 +112,25 @@ const handleToggle = () => {
         {showAll && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ 
-              opacity: 1, 
+            animate={{
+              opacity: 1,
               height: "auto",
               transition: {
                 height: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
                 opacity: { duration: 0.4, delay: 0.1 }
               }
             }}
-            exit={{ 
-              opacity: 0, 
+            exit={{
+              opacity: 0,
               height: 0,
               transition: {
                 opacity: { duration: 0.5, delay: 0.1 },
                 height: { duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }
               }
             }}
-            className="w-full px-6 "
+            className="w-full px-6"
           >
-            <div className="w-[95%] ml-12 mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 ">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {extraCards.map((project, i) => (
                 <motion.div
                   key={project.id}
@@ -130,7 +143,11 @@ const handleToggle = () => {
                     ease: [0.22, 1, 0.36, 1],
                   }}
                 >
-                  <ProjectCard project={project} />
+                  <ProjectCard
+                    project={project}
+                    onClick={(e: any) => openProject(project, e.currentTarget)}
+                    onReadMore={() => openProject(project)}
+                  />
                 </motion.div>
               ))}
             </div>
@@ -138,21 +155,32 @@ const handleToggle = () => {
         )}
       </AnimatePresence>
 
+      {/* GLOBAL MODAL FOR ALL PROJECTS */}
+      <AnimatePresence>
+        {activeProject && (
+          <ProjectModal
+            project={activeProject}
+            onClose={closeProject}
+            previousFocusRef={lastFocusedRef}
+          />
+        )}
+      </AnimatePresence>
+
       {/* VIEW MORE BUTTON */}
 
-        <div className=" relative flex justify-center mt-12 ">
+      <div className=" relative flex justify-center mt-12 ">
         <div className="flex items-center gap-6 w-full max-w-md">
           <div className="flex-1 h-px bg-gradient-to-r from-transparent to-white/30 z-30" />
-        <button
-          onClick={handleToggle}
-          className="px-6 py-2 text-sm text-white/60 hover:text-white
+          <button
+            onClick={handleToggle}
+            className="px-6 py-2 text-sm text-white/60 hover:text-white
                      bg-transparent hover:bg-white/5 rounded
                      transition-all duration-300"
-        >
-          {showAll ? "View less" : "View more"}
-        </button>
-                  <div className="flex-1 h-px bg-gradient-to-l from-transparent to-white/30 z-30" />
-      </div>
+          >
+            {showAll ? "View less" : "View more"}
+          </button>
+          <div className="flex-1 h-px bg-gradient-to-l from-transparent to-white/30 z-30" />
+        </div>
       </div>
     </section>
   );

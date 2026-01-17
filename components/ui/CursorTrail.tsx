@@ -19,13 +19,12 @@ export default function Cursor() {
 
     const animate = () => {
       // Smooth interpolation (slow follow)
-      current.current.x += (mouse.current.x - current.current.x) * 0.08;
-      current.current.y += (mouse.current.y - current.current.y) * 0.08;
+      current.current.x += (mouse.current.x - current.current.x) * 0.09;
+      current.current.y += (mouse.current.y - current.current.y) * 0.09;
 
       if (mainRef.current) {
-        mainRef.current.style.transform = `translate(${
-          current.current.x - 12
-        }px, ${current.current.y - 12}px)`;
+        mainRef.current.style.transform = `translate(${current.current.x - 12
+          }px, ${current.current.y - 12}px)`;
       }
 
       trailRefs.current.forEach((dot, i) => {
