@@ -39,13 +39,13 @@ export const FloatingNav = ({
 
   // Icon mapping for navigation items
   const iconMap: { [key: string]: JSX.Element } = {
-    "Home": <HomeIcon className="w-5 h-5" />,
-    "Experience": <BriefcaseIcon className="w-5 h-5" />,
-    "Skills": <CogIcon className="w-5 h-5" />,
-    "Projects": <FolderIcon className="w-5 h-5" />,
-    "Certifications": <AcademicCapIcon className="w-5 h-5" />,
-    "Publications": <DocumentTextIcon className="w-5 h-5" />,
-    "Contact": <EnvelopeIcon className="w-5 h-5" />
+    "Home": <HomeIcon className="w-4 h-4 md:w-5 md:h-5" />,
+    "Experience": <BriefcaseIcon className="w-4 h-4 md:w-5 md:h-5" />,
+    "Skills": <CogIcon className="w-4 h-4 md:w-5 md:h-5" />,
+    "Projects": <FolderIcon className="w-4 h-4 md:w-5 md:h-5" />,
+    "Certifications": <AcademicCapIcon className="w-4 h-4 md:w-5 md:h-5" />,
+    "Publications": <DocumentTextIcon className="w-4 h-4 md:w-5 md:h-5" />,
+    "Contact": <EnvelopeIcon className="w-4 h-4 md:w-5 md:h-5" />
   };
 
   // useMotionValueEvent(scrollYProgress, "change", (current) => {
@@ -102,7 +102,7 @@ export const FloatingNav = ({
           ease: [0.25, 0.46, 0.45, 0.94],
         }}
         className={cn(
-          "flex max-w-fit fixed top-6 inset-x-0 mx-auto px-4 py-3 items-center justify-center",
+          "fixed top-3 left-1/2 -translate-x-1/2 flex items-center gap-3 px-3 py-2 rounded-full backdrop-blur-md z-50",
           className
         )}
         style={{
@@ -147,7 +147,7 @@ export const FloatingNav = ({
         />
 
         {/* Navigation items */}
-        <div className="relative flex items-center space-x-2" style={{ zIndex: 10, pointerEvents: 'auto' }}>
+        <div className="relative flex items-center space-x-1 md:space-x-2" style={{ zIndex: 10, pointerEvents: 'auto' }}>
           {navItems.map((navItem: any, idx: number) => {
             const isActive = idx === activeIndex;
             const isHovered = hoveredIndex === idx;
@@ -180,7 +180,7 @@ export const FloatingNav = ({
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className={cn(
-                  "relative group bg-transparent border-none outline-none cursor-pointer px-4 py-2.5 rounded-full transition-all duration-300 flex items-center gap-2",
+                  "relative group bg-transparent border-none outline-none cursor-pointer px-2 md:px-4 py-2 md:py-2.5 rounded-full transition-all duration-300 flex items-center gap-1 md:gap-2",
                   isActive
                     ? "text-white font-semibold shadow-lg"
                     : "text-white/70 hover:text-white/90"
@@ -188,7 +188,7 @@ export const FloatingNav = ({
                 style={{
                   pointerEvents: 'auto',
                   zIndex: 20,
-                  minHeight: '40px'
+                  minHeight: '36px'
                 }}
               >
                 {/* Active/Hover background with glass effect */}
@@ -222,7 +222,7 @@ export const FloatingNav = ({
 
                 {/* Icon with animation */}
                 <motion.span
-                  className="relative flex-shrink-0"
+                  className="relative flex-shrink-0 w-4 h-4 md:w-5 md:h-5"
                   animate={{
                     rotate: isHovered ? [0, -5, 5, 0] : 0,
                     scale: isActive ? 1.1 : 1,
@@ -235,9 +235,9 @@ export const FloatingNav = ({
                   {iconMap[navItem.name] || navItem.icon}
                 </motion.span>
 
-                {/* Text with animation */}
+                {/* Text with animation - hidden on mobile */}
                 <motion.span
-                  className="relative text-sm font-body whitespace-nowrap"
+                  className="hidden md:inline-block relative text-sm font-body whitespace-nowrap"
                   animate={{
                     y: isHovered ? -1 : 0,
                   }}
@@ -271,7 +271,7 @@ export const FloatingNav = ({
                         stiffness: 400,
                         damping: 30,
                       }}
-                    />  
+                    />
                   )}
                 </AnimatePresence>
               </motion.button>

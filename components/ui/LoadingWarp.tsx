@@ -17,7 +17,7 @@
 //       const radius = Math.random() * 1.2;
 //       const theta = Math.random() * Math.PI * 2;
 //       const phi = Math.acos(2 * Math.random() - 1);
-      
+
 //       positions[i3] = radius * Math.sin(phi) * Math.cos(theta);
 //       positions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
 //       positions[i3 + 2] = radius * Math.cos(phi);
@@ -31,10 +31,10 @@
 //     if (ref.current) {
 //       ref.current.rotation.x -= delta / 10;
 //       ref.current.rotation.y -= delta / 15;
-      
+
 //       // Warp effect
 //       ref.current.position.z += speed * delta * 2;
-      
+
 //       if (ref.current.position.z > 0.5) {
 //         ref.current.position.z = -0.5;
 //       }
@@ -109,7 +109,7 @@
 //         const elapsed = Date.now() - startTime;
 //         const t = Math.min(elapsed / phase.duration, 1);
 //         const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-        
+
 //         currentProgress = startProgress + diff * eased;
 //         setProgress(Math.floor(currentProgress));
 
@@ -308,7 +308,7 @@ const LoadingWarp = ({ onFinish }: { onFinish: () => void }) => {
 
       <div className="absolute text-center">
         <h1
-          className="text-7xl font-bold tracking-wide"
+          className="text-3xl sm:text-5xl md:text-7xl font-bold tracking-wide transition-all duration-300 px-4 break-words"
           style={{
             background:
               "linear-gradient(to right, #dc2626, #fb923c, #facc15)",

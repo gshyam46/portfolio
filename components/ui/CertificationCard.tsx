@@ -1,7 +1,8 @@
 
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Award } from "lucide-react";
 import Image from "next/image";
 
 export default function CertificationCard({
@@ -15,6 +16,7 @@ export default function CertificationCard({
   animateIn: boolean;
   isCollapsing: boolean;
 }) {
+  const [error, setError] = useState(false);
   return (
     <motion.div
       initial={
@@ -35,14 +37,21 @@ export default function CertificationCard({
       className="glass-card w-[90%] mx-auto px-6 py-4 rounded-2xl grid grid-cols-[auto_1fr_auto] gap-x-5 gap-y-3 items-start"
     >
 
-      
-<Image
-  src={cert.image}
-  alt={cert.title}
-  width={48}
-  height={48}
-  className="row-span-2 w-12 h-12 object-contain rounded-md"
-/>
+
+      {error ? (
+        <div className="row-span-2 w-12 h-12 flex items-center justify-center bg-white/10 rounded-md">
+          <Award className="text-white/50" size={24} />
+        </div>
+      ) : (
+        <Image
+          src={cert.image}
+          alt={cert.title}
+          width={48}
+          height={48}
+          className="row-span-2 w-12 h-12 object-contain rounded-md"
+          onError={() => setError(true)}
+        />
+      )}
 
       <div className="min-w-0">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">

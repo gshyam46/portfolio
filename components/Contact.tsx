@@ -5,7 +5,7 @@ import GlassHeading from "./ui/GlassHeading";
 
 export default function Contact() {
   return (
-    
+
     <section className="relative w-full z-30">
       {/* <video
                     autoPlay
@@ -20,7 +20,7 @@ export default function Contact() {
                     <source src="/blackhole.webm" type="video/webm" />
                   </video> */}
       {/* Heading */}
-      <div className="flex justify-center mb-10">
+      <div className="flex justify-center mb-8 sm:mb-10">
         <GlassHeading
           text="Reach Out"
           width="w-[100%]"
@@ -39,11 +39,11 @@ export default function Contact() {
           duration: 0.6,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className="mx-auto max-w-3xl glass-card px-8 py-10 rounded-3xl"
+        className="mx-auto max-w-3xl glass-card px-4 sm:px-6 md:px-8 py-6 sm:py-8 md:py-10 rounded-3xl"
       >
         <form className="flex flex-col gap-6">
           {/* Name + Email */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             <Input label="Name" placeholder="Your name" />
             <Input label="Email" placeholder="you@example.com" />
           </div>
@@ -62,8 +62,8 @@ export default function Contact() {
                 rounded-xl
                 bg-white/5
                 border border-white/10
-                px-4 py-3
-                text-sm text-white
+                px-3 sm:px-4 py-2 sm:py-3
+                text-xs sm:text-sm text-white
                 placeholder:text-white/40
                 focus:outline-none
                 focus:ring-2 focus:ring-white/20
@@ -73,12 +73,12 @@ export default function Contact() {
           </div>
 
           {/* Submit */}
-          <div className="flex justify-end pt-4">
+          <div className="flex justify-end pt-3 sm:pt-4">
             <button
               type="submit"
               className="
-                px-6 py-2
-                text-sm
+                px-5 sm:px-6 py-2
+                text-xs sm:text-sm
                 font-medium
                 text-white/80
                 hover:text-white
@@ -110,8 +110,8 @@ function Input({
   placeholder: string;
 }) {
   return (
-    <div className="flex flex-col gap-2">
-      <label className="text-sm text-white/70">{label}</label>
+    <div className="flex flex-col gap-1.5 sm:gap-2">
+      <label className="text-xs sm:text-sm text-white/70">{label}</label>
       <input
         type="text"
         placeholder={placeholder}
@@ -120,8 +120,8 @@ function Input({
           rounded-xl
           bg-white/5
           border border-white/10
-          px-4 py-3
-          text-sm text-white
+          px-3 sm:px-4 py-2 sm:py-3
+          text-xs sm:text-sm text-white
           placeholder:text-white/40
           focus:outline-none
           focus:ring-2 focus:ring-white/20

@@ -88,10 +88,12 @@ const Stars = ({ speed = 0.05 }: { speed?: number }) => {
 };
 
 const StarsCanvas = () => (
-  <div className="fixed inset-0 z-0 pointer-events-none">
-    <Canvas camera={{ position: [0, 0, 1] }}>
-      <Stars />
-    </Canvas>
+  <div className="fixed inset-0 z-0 pointer-events-none w-full h-full overflow-hidden">
+    <div className="absolute inset-0 w-full h-full max-w-[100vw] max-h-[100vh]">
+      <Canvas camera={{ position: [0, 0, 1] }} style={{ width: '100%', height: '100%', maxWidth: '100vw', maxHeight: '100vh' }}>
+        <Stars />
+      </Canvas>
+    </div>
   </div>
 );
 

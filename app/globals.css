@@ -118,7 +118,7 @@ html {
 
 .gold-btn {
   position: relative;
-  padding: 14px 42px;
+  padding: clamp(0.75rem, 2vw, 0.875rem) clamp(1.5rem, 4vw, 2.625rem);
   border-radius: 999px;
   background: linear-gradient(
     135deg,
@@ -147,7 +147,7 @@ html {
 .gold-btn-text {
   position: relative;
   z-index: 2;
-  font-size: 1.05rem;
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
   font-weight: 500;
   color: #fff;
   letter-spacing: 0.3px;
@@ -183,7 +183,7 @@ html {
 
 .golden-btn {
   position: relative;
-  padding: 14px 46px;
+  padding: clamp(0.75rem, 2vw, 0.875rem) clamp(1.75rem, 4vw, 2.875rem);
   border-radius: 999px;
   background: radial-gradient(
     circle at top,
@@ -203,7 +203,7 @@ html {
   position: relative;
   z-index: 3;
   color: #ffffff;
-  font-size: 1.3rem;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
   font-weight: 400;
   letter-spacing: 0.35px;
 

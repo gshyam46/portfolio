@@ -4,9 +4,11 @@ import { SKILL_CATEGORIES } from "@/constants/skills";
 import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
 import GlassHeading from "./ui/GlassHeading";
+import { useIsMobile } from "@/utils/useIsMobile";
 
 
 export default function Skills() {
+  const isMobile = useIsMobile();
   const filteredSkills = SKILL_CATEGORIES.filter(s => s.id !== "all");
   const [active, setActive] = useState(filteredSkills[0]?.id || "frontend");
   const current = filteredSkills.find(s => s.id === active)!;
@@ -33,80 +35,80 @@ export default function Skills() {
   };
 
   return (
-    <section className="relative w-[90%] min-h-[80vh] flex flex-col justify-center items-center top-36 px-4 z-30">  
-     
-                          <div className="absolute  flex flex-col mt-36 justify-center items-center " >   
-               <GlassHeading
-                      className=" mb-16"
-                          text="Skills & Technologies"
-                          width="w-[100%]"
-                          position="center"
-                          fontSize="2.2rem"
-                            height="h-[60px]"
-                      />
-      
-      
-                  
-      {/* Category Selector */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="flex flex-wrap justify-center text-gray-300 gap-3 mb-12 relative z-30"
-      >
-        {filteredSkills.map(cat => (
-          <motion.button
-            key={cat.id}
-            onClick={() => {
-              console.log('Button clicked:', cat.id);
-              setActive(cat.id);
-            }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={`relative flex items-center gap-2 px-6 py-3 rounded-2xl
+    <section className="relative w-full px-4 sm:px-6 md:w-[90%] min-h-[80vh] flex flex-col justify-center items-center top-20 sm:top-28 md:top-36 z-30">
+
+      <div className="absolute  flex flex-col mt-36 justify-center items-center " >
+        <GlassHeading
+          className=" mb-16"
+          text="Skills & Technologies"
+          width="w-[100%]"
+          position="center"
+          fontSize="2.2rem"
+          height="h-[60px]"
+        />
+
+
+
+        {/* Category Selector */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="flex flex-wrap justify-center text-gray-300 gap-2 sm:gap-3 mb-8 sm:mb-12 relative z-30"
+        >
+          {filteredSkills.map(cat => (
+            <motion.button
+              key={cat.id}
+              onClick={() => {
+                console.log('Button clicked:', cat.id);
+                setActive(cat.id);
+              }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`relative flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-2xl text-sm sm:text-base
               backdrop-blur-xl border transition-all duration-300 cursor-pointer
               ${active === cat.id
-                ? "bg-white/20 border-white/80 shadow-lg text-white shadow-white/10"
-                : "bg-white/5 border-white/40 hover:bg-white/10 hover:border-white/20"}`}
-          >
-            <Icon icon={cat.icon} className="text-xl" />
-            <span className="font-medium">{cat.title}</span>
-            {active === cat.id && (
-              <motion.div
-                layoutId="activeTab"
-                className="absolute inset-0 bg-gradient-to-r from-white/10 to-white/5 rounded-2xl -z-10"
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              />
-            )}
-          </motion.button>
-        ))}
-      </motion.div>
+                  ? "bg-white/20 border-white/80 shadow-lg text-white shadow-white/10"
+                  : "bg-white/5 border-white/40 hover:bg-white/10 hover:border-white/20"}`}
+            >
+              <Icon icon={cat.icon} className="text-lg sm:text-xl" />
+              <span className="font-medium">{cat.title}</span>
+              {active === cat.id && (
+                <motion.div
+                  layoutId="activeTab"
+                  className="absolute inset-0 bg-gradient-to-r from-white/10 to-white/5 rounded-2xl -z-10"
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                />
+              )}
+            </motion.button>
+          ))}
+        </motion.div>
 
-      {/* Skills Grid Container */}
-<div
-  className="w-full max-w-6xl"
-  style={{ minHeight: "420px" }} 
->
-       
+        {/* Skills Grid Container */}
+        <div
+          className="w-full max-w-6xl"
+          style={{ minHeight: "420px" }}
+        >
+
           <motion.div
             key={active}
             variants={containerVariants}
             initial="hidden"
             animate="visible"
- layout
-  transition={{ layout: { duration: 0.4, ease: "easeOut" } }}
-  className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 text-gray-300 justify-items-center"
->
+            layout
+            transition={{ layout: { duration: 0.4, ease: "easeOut" } }}
+            className="grid grid-cols-3 gap-3 sm:gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 text-gray-300 justify-items-center"
+          >
             {current.skills.map((skill, idx) => (
               <motion.div
                 key={skill.name}
                 variants={itemVariants}
-                whileHover={{
+                whileHover={!isMobile ? {
                   scale: 1.08,
                   y: -8,
                   transition: { type: "spring", stiffness: 400, damping: 17 }
-                }}
-                className="group relative w-full max-w-[140px] rounded-2xl p-5
+                } : {}}
+                className="group relative w-full max-w-[110px] sm:max-w-[130px] md:max-w-[140px] rounded-2xl p-4 sm:p-5
                   backdrop-blur-2xl bg-gradient-to-br from-white/10 to-white/5
                   border border-white/20 hover:border-white/40
                   shadow-lg hover:shadow-2xl hover:shadow-white/10
@@ -121,9 +123,9 @@ export default function Skills() {
                     whileHover={{ rotate: [0, -10, 10, -10, 0] }}
                     transition={{ duration: 0.5 }}
                   >
-                    <Icon icon={skill.icon} className="text-4xl opacity-90 group-hover:opacity-100 transition-opacity" />
+                    <Icon icon={skill.icon} className="text-3xl sm:text-4xl opacity-90 group-hover:opacity-100 transition-opacity" />
                   </motion.div>
-                  <span className="text-sm font-medium text-center leading-tight">{skill.name}</span>
+                  <span className="text-xs sm:text-sm font-medium text-center leading-tight">{skill.name}</span>
                   {skill.level && (
                     <motion.span
                       initial={{ opacity: 0, scale: 0 }}
@@ -141,7 +143,7 @@ export default function Skills() {
               </motion.div>
             ))}
           </motion.div>
-      </div>
+        </div>
       </div>
     </section>
   );
