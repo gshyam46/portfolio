@@ -1,15 +1,21 @@
 "use client";
 
-import { useIsMobile } from "@/utils/useIsMobile";
+import { useDevice } from "@/hooks/useDevice";
 import ExperienceMobile from "./mobile/ExperienceMobile";
 import ExperienceDesktop from "./ExperienceDesktop";
+import ExperienceTablet from "./ExperienceTablet";
 
 export default function Experience() {
-    const isMobile = useIsMobile();
+    const { isDesktop, isTablet } = useDevice();
 
-    if (isMobile) {
-        return <ExperienceMobile />;
+    // Device router pattern - explicit component routing
+    if (isDesktop) {
+        return <ExperienceDesktop />;
     }
-
-    return <ExperienceDesktop />;
+    
+    if (isTablet) {
+        return <ExperienceTablet />;
+    }
+    
+    return <ExperienceMobile />;
 }

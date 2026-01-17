@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { navItems } from "@/constants";
 
 import Hero from "@/components/Hero";
@@ -10,11 +10,12 @@ import Projects from "@/components/Projects";
 import Certifications from "@/components/Certifications";
 import Publications from "@/components/Publications";
 import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
 import { FloatingNav } from "@/components/ui/FloatingNavbar";
 
 const Home=()=> {
   const [activeIndex, setActiveIndex] = useState(0);
-  const observerRef = useRef<IntersectionObserver | null>(null);
+
 useEffect(() => {
   const sectionMap = [
     { id: "home", index: 0 },
@@ -56,53 +57,45 @@ useEffect(() => {
 
 
   return (
-
-    <main className="h-full w-full">
-      <div className="flex flex-col ">
+    <main className="h-full w-full relative">
+      <div className="flex flex-col relative z-10">
          <FloatingNav
         navItems={navItems}
         activeIndex={activeIndex}
       />
 
-        <section id="home" className=" flex min-h-screen ">
+        <section id="home" className="flex min-h-screen">
           <Hero />
         </section>
 
-        <section id="experience" className="min-h-screen flex items-center justify-center ">
-  
+        <section id="experience" className="min-h-screen flex items-center justify-center">
           <Experience />
         </section>
         
-    
-        <section id="skills" className="min-h-screen flex items-center justify-center ">
+        <section id="skills" className="min-h-screen flex items-center justify-center">
           <Skills />
         </section>
 
-        <section id="projects" className="min-h-screen flex ">
-
+        <section id="projects" className="min-h-screen flex">
           <Projects />
         </section>
 
         <section id="certifications" className="min-h-screen flex items-center justify-center">
-
           <Certifications />
         </section>
 
         <section id="publications" className="min-h-screen flex items-center justify-center">
-
-
           <Publications />
         </section>
 
         <section id="contact" className="min-h-screen flex items-center justify-center">
-     
           <Contact />
         </section>
 
-
-
-
-
+        {/* Footer with dotted background */}
+        <div className="relative dotted-bg flex items-center justify-center">
+          <Footer />
+        </div>
       </div>
     </main>
   );

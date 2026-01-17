@@ -32,17 +32,22 @@ const Hero = () => {
           <div className="mt-6 sm:mt-8">
             <ResumeModal />
           </div>
+          <div className="absolute bottom-16 sm:bottom-20 md:bottom-28 left-4 sm:left-8 md:left-16 lg:left-36 right-4 sm:right-8 md:right-16">
+        <p className="font-tech text-gray-400 text-base sm:text-lg md:text-xl lg:text-2xl max-w-3xl text-center lg:text-left">
+          Focused on AI systems, applied research, and scalable engineering.
+        </p>
+      </div>
         </div>
 
         {/* RIGHT IMAGE */}
         <div className="relative flex justify-center lg:justify-end items-center w-full max-w-xs sm:max-w-sm lg:max-w-lg lg:mr-10">
 
           {/* Glow */}
-          <div className="absolute -inset-8 sm:-inset-12 rounded-full
+          <div className="absolute -inset-4 sm:-inset-8 lg:-inset-12 rounded-full
         bg-[radial-gradient(circle,rgba(255,180,80,0.35),transparent_70%)]
         blur-3xl opacity-80" />
 
-          <div className="relative w-full max-w-[250px] sm:max-w-[300px] md:max-w-md">
+          <div className="relative w-full max-w-[180px] sm:max-w-[250px] md:max-w-md">
             <Image
               src="/shyam-art-nobg.png"
               alt="Ghanashyam"
@@ -52,18 +57,14 @@ const Hero = () => {
               className="object-cover w-full h-auto"
             />
 
-            <div className="pointer-events-none absolute bottom-0 left-0 w-full h-24 sm:h-36 bg-gradient-to-t from-black to-transparent" />
+            <div className="pointer-events-none absolute bottom-0 left-0 w-full h-16 sm:h-24 lg:h-36 bg-gradient-to-t from-black via-black/80 to-transparent" />
           </div>
         </div>
 
       </div>
 
       {/* Bottom line aligned with left */}
-      <div className="absolute bottom-16 sm:bottom-20 md:bottom-28 left-4 sm:left-8 md:left-16 lg:left-36 right-4 sm:right-8 md:right-16">
-        <p className="font-tech text-gray-400 text-base sm:text-lg md:text-xl lg:text-2xl max-w-3xl text-center lg:text-left">
-          Focused on AI systems, applied research, and scalable engineering.
-        </p>
-      </div>
+      
     </section>
 
   );

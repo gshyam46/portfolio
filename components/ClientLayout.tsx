@@ -20,10 +20,6 @@ export default function ClientLayout({
         <>
           <StarsCanvas />
           {children}
-
-          <div className="relative dotted-bg flex items-center justify-center">
-            <Footer />
-          </div>
         </>
       )}
     </>

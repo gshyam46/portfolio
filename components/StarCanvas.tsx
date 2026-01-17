@@ -57,12 +57,13 @@ import React, { useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as random from "maath/random";
+import { useDevice } from "@/hooks/useDevice";
 
-const Stars = ({ speed = 0.05 }: { speed?: number }) => {
+const Stars = ({ speed = 0.05, density = 6000 }: { speed?: number; density?: number }) => {
   const ref = useRef<React.ElementRef<typeof Points>>(null);
 
   const [positions] = useState<Float32Array>(() => {
-    const arr = random.inSphere(new Float32Array(6000), { radius: 1.4 });
+    const arr = random.inSphere(new Float32Array(density), { radius: 1.4 });
     return new Float32Array(arr);
   });
 
@@ -87,14 +88,43 @@ const Stars = ({ speed = 0.05 }: { speed?: number }) => {
   );
 };
 
-const StarsCanvas = () => (
-  <div className="fixed inset-0 z-0 pointer-events-none w-full h-full overflow-hidden">
-    <div className="absolute inset-0 w-full h-full max-w-[100vw] max-h-[100vh]">
-      <Canvas camera={{ position: [0, 0, 1] }} style={{ width: '100%', height: '100%', maxWidth: '100vw', maxHeight: '100vh' }}>
-        <Stars />
-      </Canvas>
+const StarsCanvas = () => {
+  const { isMobile, isTablet } = useDevice();
+  
+  // Reduce density on mobile for performance and simplify on mobile if needed
+  const density = isMobile ? 3000 : isTablet ? 4500 : 6000;
+  const speed = isMobile ? 0.03 : 0.05;
+
+  return (
+    <div className="fixed inset-0 z-0 pointer-events-none w-full h-full overflow-hidden">
+      <div 
+        className="absolute inset-0 w-full h-full"
+        style={{ 
+          maxWidth: '100vw', 
+          maxHeight: '100vh',
+          width: '100vw',
+          height: '100vh'
+        }}
+      >
+        <Canvas 
+          camera={{ position: [0, 0, 1] }} 
+          style={{ 
+            width: '100%', 
+            height: '100%', 
+            maxWidth: '100vw', 
+            maxHeight: '100vh',
+            display: 'block'
+          }}
+          gl={{ 
+            antialias: false, // Disable on mobile for performance
+            powerPreference: isMobile ? "low-power" : "high-performance"
+          }}
+        >
+          <Stars speed={speed} density={density} />
+        </Canvas>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default StarsCanvas;
