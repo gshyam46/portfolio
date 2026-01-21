@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PUBLICATIONS } from "@/constants/publications";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
+import { useDevice } from "@/hooks/useDevice";
 
 export default function PublicationsMobile() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -11,15 +12,16 @@ export default function PublicationsMobile() {
   const toggleExpanded = (id: string) => {
     setExpandedId(expandedId === id ? null : id);
   };
+const { isDesktop, isTablet, isMobile } = useDevice();
 
   return (
     <section className="w-full px-4 py-6 overflow-hidden">
       {/* Glass Heading */}
       <div className="relative mb-6 flex justify-center">
-        <div className="relative">
+        <div className="relative  w-[80%]">
           <div className="absolute inset-0 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20" />
-          <h2 className="relative text-[16px] font-semibold text-white px-4 py-2">
-            Publications
+          <h2 className="relative text-center text-[16px] font-semibold text-white px-4 py-2">
+            PUBLICATIONS
           </h2>
         </div>
       </div>
@@ -49,26 +51,25 @@ export default function PublicationsMobile() {
                 <p className="text-[11px] text-white/60 mb-1">
                   {publication.journal} • {publication.year}
                 </p>
-                {/* Show a bit of abstract text */}
+                {/* Show a bit of abstract text
                 {publication.abstract && (
-                  <p className="text-[10px] text-white/50 line-clamp-2 leading-relaxed">
+                 <p className="text-[11px] text-white/60  leading-relaxed">
+
                     {publication.abstract}
                   </p>
-                )}
+                )} */}
               </div>
               
-              <div className="flex-shrink-0 ml-2">
+              {/* <div className="flex-shrink-0 ml-2">
                 {expandedId === publication.id ? (
                   <ChevronUpIcon className="w-4 h-4 text-white/60" />
                 ) : (
                   <ChevronDownIcon className="w-4 h-4 text-white/60" />
                 )}
-              </div>
+              </div> */}
             </button>
-
-            {/* Expandable Content */}
-            <AnimatePresence>
-              {expandedId === publication.id && (
+<AnimatePresence>
+             
                 <motion.div
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
@@ -78,16 +79,42 @@ export default function PublicationsMobile() {
                 >
                   <div className="px-3 pb-3 border-t border-white/10">
                     {/* Abstract */}
-                    {publication.abstract && (
-                      <div className="mt-2">
-                        <h4 className="text-[11px] font-medium text-white/80 mb-1">
-                          Abstract
-                        </h4>
-                        <p className="text-[12px] text-white/70 leading-relaxed">
-                          {publication.abstract}
-                        </p>
-                      </div>
-                    )}
+                    {(isDesktop || isTablet) && publication.abstract && (
+  <div className="mt-2">
+    <h4 className="text-[11px] font-medium text-white/80 mb-1">
+      Abstract
+    </h4>
+    <p className="text-[12px] text-white/70 leading-relaxed">
+      {publication.abstract}
+    </p>
+  </div>
+)}
+
+{isMobile && publication.mobileAbstract && (
+  <div className="mt-2 flex flex-col gap-2">
+    {publication.mobileAbstract.map((line: string, idx: number) => {
+      const isBullet = line.trim().startsWith("•");
+
+      return (
+        <p
+          key={idx}
+          className={
+            isBullet
+              ? "text-[11px] text-white/60 leading-snug pl-3 relative"
+              : "text-[12px] text-white/70 leading-relaxed"
+          }
+        >
+          {isBullet && (
+            <span className="absolute left-0 text-white/40">•</span>
+          )}
+          {isBullet ? line.replace(/^•\s*/, "") : line}
+        </p>
+      );
+    })}
+  </div>
+)}
+
+
 
                     {/* Authors */}
                     {publication.authors && (
@@ -152,8 +179,10 @@ export default function PublicationsMobile() {
                     )}
                   </div>
                 </motion.div>
-              )}
+              
             </AnimatePresence>
+            {/* Expandable Content */}
+            
           </motion.div>
         ))}
       </div>

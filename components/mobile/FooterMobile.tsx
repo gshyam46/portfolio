@@ -8,76 +8,73 @@ import Image from "next/image";
 
 const FooterMobile = () => {
   return (
-    <div className="w-full bg-transparent text-white px-4 py-4 overflow-hidden">
-      <div className="w-full flex flex-col items-center justify-center max-w-sm mx-auto">
-        
-        {/* Profile Image - Smaller for mobile */}
-        <div className="relative w-20 h-20 mb-3">
-          <div className="w-full h-full rounded-full bg-black flex items-center justify-center overflow-hidden">
+    <footer className="w-full px-4 py-5 text-black">
+      <div className="max-w-sm mx-auto flex flex-col items-center text-center gap-3">
+
+        {/* Profile Image */}
+        <div className="relative w-16 h-16">
+          <div className="w-full h-full rounded-full overflow-hidden bg-black">
             <Image
               src="/shyam.jpg"
               alt="Ghanashyam"
-              width={80}
-              height={80}
-              className="rounded-full object-cover object-bottom"
+              width={64}
+              height={64}
+              className="object-cover object-bottom"
             />
           </div>
         </div>
 
-        {/* Main Message - Mobile typography */}
-        <div className="text-center mb-3">
-          <h3 className="text-[16px] font-semibold text-white mb-1">
-            Thanks for viewing my Portfolio!
-          </h3>
-          <p className="text-[12px] text-white/70">
-            This portfolio is in progress.
+        {/* Message */}
+        <div>
+          <p className="text-[13px]  text-black">
+            Thanks for watching through my portfolio
+          </p>
+          <p className="text-[11px] text-black/60">
+            Work in progress
+          </p>
+            <p className="text-[11px] text-black/60">
+           View on desktop for the best experience.
           </p>
         </div>
 
-        {/* Name - Mobile appropriate size */}
-        <h1 className="text-[18px] font-bold text-white mb-4 text-center tracking-wider">
-          - GHANASHYAM -
-        </h1>
+        {/* Name Signature */}
+        <p className="text-[14px] tracking-wide text-black/80">
+          — Ghanashyam —
+        </p>
 
-        {/* Social Media - Compact layout */}
-        <div className="w-full mb-4">
-          <h4 className="text-[13px] font-semibold text-white/90 text-center mb-2">
-            Connect
-          </h4>
-          
-          <div className="flex justify-center gap-4">
-            <a 
-              href="#" 
-              className="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-white/5 transition-colors min-w-[44px] min-h-[44px] justify-center"
-            >
-              <RxTwitterLogo className="text-base text-white/80" />
-              <span className="text-[9px] text-white/60">Twitter</span>
-            </a>
-            
-            <a 
-              href="#" 
-              className="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-white/5 transition-colors min-w-[44px] min-h-[44px] justify-center"
-            >
-              <RxLinkedinLogo className="text-base text-white/80" />
-              <span className="text-[9px] text-white/60">LinkedIn</span>
-            </a>
-            
-            <a 
-              href="#" 
-              className="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-white/5 transition-colors min-w-[44px] min-h-[44px] justify-center"
-            >
-              <RxGithubLogo className="text-base text-white/80" />
-              <span className="text-[9px] text-white/60">GitHub</span>
-            </a>
-          </div>
+        {/* Social Links */}
+        <div className="flex justify-center gap-3 mt-1">
+          <a
+            href="#"
+            aria-label="Twitter"
+            className="w-11 h-11 rounded-full flex items-center justify-center bg-black/5 text-black/70 active:bg-black/10 transition"
+          >
+            <RxTwitterLogo className="text-base" />
+          </a>
+
+          <a
+            href="#"
+            aria-label="LinkedIn"
+            className="w-11 h-11 rounded-full flex items-center justify-center bg-black/5 text-black/70 active:bg-black/10 transition"
+          >
+            <RxLinkedinLogo className="text-base" />
+          </a>
+
+          <a
+            href="#"
+            aria-label="GitHub"
+            className="w-11 h-11 rounded-full flex items-center justify-center bg-black/5 text-black/70 active:bg-black/10 transition"
+          >
+            <RxGithubLogo className="text-base" />
+          </a>
         </div>
 
-        {/* Copyright - Mobile typography */}
-        <div className="text-[11px] text-white/50 text-center">
-          &copy; Ghanashyam 2026. All rights reserved.
-        </div>
+        {/* Copyright */}
+        <p className="text-[10px] text-black/40 mt-1">
+          © 2026 Ghanashyam
+        </p>
       </div>
-    </div>
+    </footer>
   );
 };
 

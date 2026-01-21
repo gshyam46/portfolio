@@ -1,21 +1,122 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useDevice } from "@/hooks/useDevice";
 import GlassHeading from "./ui/GlassHeading";
+import emailjs from "@emailjs/browser";
+import { useRef, useState, useEffect } from "react";
+import ElectricBorder from "./ElectricBorder";
+
+const MAX_MESSAGES = 3;
+const STORAGE_KEY = "contact_message_count";
 
 export default function Contact() {
-  const { isMobile, isTablet, isDesktop } = useDevice();
+  const { isMobile } = useDevice();
+  const formRef = useRef<HTMLFormElement | null>(null);
+
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<"idle" | "success" | "error" | "limit">("idle");
+  const [count, setCount] = useState(0);
+
+  /* ------------------ */
+  /* Form state         */
+  /* ------------------ */
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  /* ------------------ */
+  /* Load send count    */
+  /* ------------------ */
+  useEffect(() => {
+    const saved = Number(localStorage.getItem(STORAGE_KEY) || 0);
+    setCount(saved);
+    if (saved >= MAX_MESSAGES) setStatus("limit");
+  }, []);
+
+  /* ------------------ */
+  /* Validation         */
+  /* ------------------ */
+  const validate = () => {
+    const next: Record<string, string> = {};
+
+    if (values.name.trim().length < 2)
+      next.name = "Please enter your name.";
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email))
+      next.email = "Enter a valid email address.";
+
+    if (values.subject.trim().length < 3)
+      next.subject = "Subject is too short.";
+
+    if (values.message.trim().length < 10)
+      next.message = "Message should be at least 10 characters.";
+
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  };
+
+  /* ------------------ */
+  /* Submit handler     */
+  /* ------------------ */
+  const sendEmail = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validate()) return;
+    if (!formRef.current) return;
+    if (count >= MAX_MESSAGES) {
+      setStatus("limit");
+      return;
+    }
+
+    setLoading(true);
+    setStatus("idle");
+
+    try {
+      await emailjs.sendForm(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        formRef.current,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+      );
+
+      const newCount = count + 1;
+      localStorage.setItem(STORAGE_KEY, String(newCount));
+      setCount(newCount);
+
+      formRef.current.reset();
+      setValues({ name: "", email: "", subject: "", message: "" });
+
+      setStatus(newCount >= MAX_MESSAGES ? "limit" : "success");
+    } catch (err) {
+      console.error(err);
+      setStatus("error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const isFormValid =
+    values.name &&
+    values.email &&
+    values.subject &&
+    values.message &&
+    Object.keys(errors).length === 0;
 
   return (
     <section className="relative w-full z-30">
       {/* Heading */}
       <div className="flex justify-center mb-8 sm:mb-10">
         {isMobile ? (
-          <div className="relative">
+          <div className="relative w-[80%]">
             <div className="absolute inset-0 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20" />
-            <h2 className="relative text-[16px] font-semibold text-white px-4 py-2">
-              Reach Out
+            <h2 className="relative text-center text-[16px] font-semibold text-white px-4 py-2">
+              REACH OUT
             </h2>
           </div>
         ) : (
@@ -29,92 +130,135 @@ export default function Contact() {
         )}
       </div>
 
-      {/* Form Container */}
+      {/* HALO + FORM */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-120px" }}
-        transition={{
-          duration: 0.6,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        className={`
-          mx-auto glass-card rounded-3xl
-          ${isMobile 
-            ? "max-w-sm px-4 py-6" 
-            : "max-w-3xl px-4 sm:px-6 md:px-8 py-6 sm:py-8 md:py-10"
-          }
-        `}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="relative mx-auto flex justify-center"
       >
-        {/* Hero text constraint for mobile */}
-        {isMobile && (
-          <div className="mb-6 max-w-[90vw]">
-            <p className="text-[13px] text-white/80 text-center leading-relaxed">
-              Let's connect and discuss opportunities, collaborations, or just say hello!
-            </p>
-          </div>
-        )}
+        {/* Halo glow */}
+        <div
+          className="
+            absolute inset-0 rounded-full
+            bg-[radial-gradient(circle,rgba(255,200,120,0.35),transparent_70%)]
+            blur-3xl scale-110 pointer-events-none
+          "
+        />
 
-        <form className="flex flex-col gap-6">
-          {/* Name + Email */}
-          <div className={`grid gap-4 ${isMobile ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2 sm:gap-6"}`}>
-            <Input label="Name" placeholder="Your name" isMobile={isMobile} />
-            <Input label="Email" placeholder="you@example.com" isMobile={isMobile} />
-          </div>
-
-          {/* Subject */}
-          <Input label="Subject" placeholder="What's this about?" isMobile={isMobile} />
-
-          {/* Message */}
-          <div className="flex flex-col gap-2">
-            <label className={`${isMobile ? "text-[11px]" : "text-sm"} text-white/70`}>
-              Message
-            </label>
-            <textarea
-              rows={isMobile ? 4 : 5}
-              placeholder="Write your message..."
-              className={`
-                w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40
-                focus:outline-none focus:ring-2 focus:ring-white/20 resize-none
-                ${isMobile 
-                  ? "px-3 py-3 text-[13px]" 
-                  : "px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm"
-                }
-              `}
-            />
-          </div>
-
-          {/* Submit - View Resume Button */}
-          <div className={`flex pt-3 sm:pt-4 ${isMobile ? "justify-center" : "justify-end"}`}>
-            <button
-              type="submit"
-              className={`
-                font-medium text-white/80 hover:text-white bg-white/10 hover:bg-white/15 
-                rounded-md transition active:scale-95
-                ${isMobile 
-                  ? "px-6 py-3 text-[13px] min-w-[44px] min-h-[44px] flex items-center justify-center" 
-                  : "px-5 sm:px-6 py-2 text-xs sm:text-sm"
-                }
-              `}
+        <div
+          className={`relative rounded-full p-[2px] ${
+            isMobile ? "w-[92vw]" : "w-[520px]"
+          } bg-gradient-to-br from-white-300/60 via-white-200/40 to-transparent`}
+        >
+          <ElectricBorder color="#ffdc7d" speed={1} chaos={0.12}>
+            <div
+              className={`rounded-full glass-card ${
+                isMobile ? "px-6 py-8" : "px-10 py-12"
+              }`}
             >
-              Send message
-            </button>
-          </div>
+              <form ref={formRef} onSubmit={sendEmail} className="flex flex-col gap-6">
+                <div className={`grid gap-4 ${isMobile ? "grid-cols-1" : "sm:grid-cols-2"}`}>
+                  <Input
+                    label="Name"
+                    value={values.name}
+                    error={errors.name}
+                    onChange={(v) => setValues({ ...values, name: v })}
+                  />
+                  <Input
+                    label="Email"
+                    value={values.email}
+                    error={errors.email}
+                    onChange={(v) => setValues({ ...values, email: v })}
+                  />
+                </div>
 
-          {/* View Resume Button - Mobile optimized */}
-          {isMobile && (
-            <div className="flex justify-center pt-4 border-t border-white/10">
-              <a
-                href="/resume.pdf" // Update with actual resume path
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-3 text-[13px] font-medium text-white bg-white/15 hover:bg-white/25 rounded-xl transition-all duration-300 min-w-[44px] min-h-[44px] flex items-center justify-center"
-              >
-                View Resume
-              </a>
+                <Input
+                  label="Subject"
+                  value={values.subject}
+                  error={errors.subject}
+                  onChange={(v) => setValues({ ...values, subject: v })}
+                />
+
+                <div>
+                  <textarea
+                  
+                    name="message"
+                    rows={isMobile ? 4 : 5}
+                    value={values.message}
+                    onChange={(e) => setValues({ ...values, message: e.target.value })}
+                    placeholder="Write your message..."
+                    className={`w-full rounded-xl bg-white/5 px-4 py-3 text-sm text-white resize-none border ${
+                      errors.message ? "border-red-400/60" : "border-white/10"
+                    }`}
+                  />
+                  {errors.message && (
+                    <p className="text-red-400 text-[11px] mt-1">{errors.message}</p>
+                  )}
+                </div>
+
+                {/* Submit */}
+                <motion.button
+                  type="submit"
+                  disabled={!isFormValid || loading || status === "limit"}
+                  whileTap={{ scale: 0.96 }}
+                  whileHover={{ scale: status === "limit" ? 1 : 1.04 }}
+                  className={`relative overflow-hidden rounded-xl px-6 py-3 font-medium golden-btn ${
+                    !isFormValid || status === "limit"
+                      ? "bg-white/5 text-white/40 cursor-not-allowed"
+                      : "bg-gradient-to-r from-amber-400 to-yellow-300 text-black"
+                  }`}
+                >
+                  <span className="golden-btn-text">
+                    {loading
+                      ? "Sending..."
+                      : status === "limit"
+                      ? "Limit reached"
+                      : "Send message"}
+                  </span>
+                  <span className="golden-btn-border" />
+                </motion.button>
+
+                {/* Feedback */}
+                <AnimatePresence>
+                  {status === "success" && (
+                    <motion.p
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="text-green-400 text-sm text-center"
+                    >
+                      Message sent successfully ✓
+                    </motion.p>
+                  )}
+
+                  {status === "error" && (
+                    <motion.p
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="text-red-400 text-sm text-center"
+                    >
+                      Failed to send. Please try again.
+                    </motion.p>
+                  )}
+
+                  {status === "limit" && (
+                    <motion.p
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="text-white/50 text-sm text-center"
+                    >
+                      Message limit reached. Please try again later.
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </form>
             </div>
-          )}
-        </form>
+          </ElectricBorder>
+        </div>
       </motion.div>
     </section>
   );
@@ -123,33 +267,28 @@ export default function Contact() {
 /* ------------------- */
 /* Input Component     */
 /* ------------------- */
-
 function Input({
   label,
-  placeholder,
-  isMobile,
+  value,
+  error,
+  onChange,
 }: {
   label: string;
-  placeholder: string;
-  isMobile: boolean;
+  value: string;
+  error?: string;
+  onChange: (v: string) => void;
 }) {
   return (
-    <div className="flex flex-col gap-1.5 sm:gap-2">
-      <label className={`${isMobile ? "text-[11px]" : "text-xs sm:text-sm"} text-white/70`}>
-        {label}
-      </label>
+    <div className="flex flex-col gap-1.5">
+      <label className="text-white/90 text-sm">{label}</label>
       <input
-        type="text"
-        placeholder={placeholder}
-        className={`
-          w-full rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40
-          focus:outline-none focus:ring-2 focus:ring-white/20
-          ${isMobile 
-            ? "px-3 py-3 text-[13px] min-h-[44px]" 
-            : "px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm"
-          }
-        `}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className={`rounded-xl bg-white/5 px-4 py-3 text-sm text-white border focus:outline-none ${
+          error ? "border-red-400/60" : "border-white/10"
+        }`}
       />
+      {error && <p className="text-red-400 text-[11px]">{error}</p>}
     </div>
   );
 }

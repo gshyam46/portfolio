@@ -43,29 +43,32 @@ export default function SkillsMobile() {
           loop
           playsInline
           className="w-full h-full object-cover scale-[1.2]"
-          style={{
-            filter: "brightness(0.4) sepia(1) hue-rotate(-10deg) saturate(4) contrast(1.2)",
-          }}
+         style={{
+                            filter:
+                              "brightness(0.7) sepia(1) hue-rotate(-10deg) saturate(6) contrast(1.3)",
+                        }}
         >
           <source src="/blackhole.webm" type="video/webm" />
         </video>
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: "linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0.95) 100%)",
+            // background: "linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0.95) 100%)",
           }}
         />
       </div>
 
       {/* Glass Heading */}
-      <div className="relative mb-6 z-10 mt-32">
+      <div className="relative mb-6 z-10 mt-32  w-[80%]">
         <div className="relative">
           <div className="absolute inset-0 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20" />
-          <h2 className="relative text-[16px] font-semibold text-white px-4 py-2 text-center">
-            Skills & Technologies
+          <h2 className="relative text-center text-[16px] font-semibold text-white px-4 py-2 ">
+            SKILLS
           </h2>
         </div>
       </div>
+    
+
 
       {/* Category Selector - Mobile optimized */}
       <motion.div
