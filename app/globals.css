@@ -15,6 +15,36 @@ body {
   overflow-x: hidden;
 }
 
+/* Very small mobile screens (360px and below) */
+@media (max-width: 374px) {
+  .hero-section {
+    padding-top: 5rem !important;
+    padding-bottom: 2rem !important;
+  }
+  
+  .hero-content {
+    gap: 0.5rem !important;
+  }
+  
+  .hero-title {
+    font-size: 20px !important;
+    line-height: 1.2 !important;
+  }
+  
+  .hero-subtitle {
+    font-size: 13px !important;
+  }
+  
+  .hero-description {
+    font-size: 10px !important;
+    margin-top: 0.5rem !important;
+  }
+  
+  .hero-image {
+    width: 65% !important;
+  }
+}
+
 .button-primary {
   background: linear-gradient(180deg,
       rgba(60, 8, 126, 0) 0%,

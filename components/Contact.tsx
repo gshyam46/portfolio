@@ -142,7 +142,7 @@ export default function Contact() {
         <div
           className="
             absolute inset-0 rounded-full
-            bg-[radial-gradient(circle,rgba(255,200,120,0.35),transparent_70%)]
+            bg-[radial-gradient(circle,rgba(255,200,120,0.1),transparent_70%)]
             blur-3xl scale-110 pointer-events-none
           "
         />

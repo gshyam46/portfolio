@@ -34,6 +34,23 @@ export const PROJECTS = [
     },
     {
         id: 3,
+title: "Agentic Founder Intelligence & Decision Analytics Platform",
+summary: "Research-driven, agentic AI platform for founder decision-making with integrated LLM observability, cost analytics, and reliability monitoring.",
+description:
+    "Designed and developed an agentic decision intelligence platform that decomposes early-stage founder challenges into structured analytical stages including profile assessment, market opportunity analysis, founder–market fit evaluation, execution roadmap generation, and tooling recommendations. The system applies data-driven reasoning and benchmarking to reduce ambiguity in startup ideation and execution planning. Integrated end-to-end LLM observability and analytics to track per-agent latency, token usage, cost trends, and reliability signals, enabling auditable AI decision flows and continuous optimization. Ongoing research focuses on open-source and low-cost AI platform benchmarking, funding-aware tooling strategies, and integration with a founder networking and collaboration ecosystem (ReachOut).",
+images: ["/projects/founder-intelligence-1.png"],
+tech: [
+    "System Design",
+    "Agentic AI Architectures",
+    "Decision Intelligence & Analytics",
+    "LLM Observability & Cost Monitoring",
+    "Data Visualization & Reliability Scoring",
+],
+link: "https://github.com/gshyam46/Cost-Guardian",
+
+    },
+    {
+        id: 4,
         title: "Phishing Website Classification",
         summary: "ML-based phishing detection system",
         description:
@@ -49,7 +66,7 @@ export const PROJECTS = [
         link: "https://github.com/gshyam46/URL-alert",
     },
     {
-        id: 4,
+        id: 5,
         title: "AI Assistant with Emotion Detection",
         summary: "Face recognition and emotion-aware AI assistant",
         description:
@@ -63,22 +80,6 @@ export const PROJECTS = [
             "Speech Interfaces",
         ],
         link: "https://github.com/gshyam46/Nova",
-    },
-    {
-        id: 5,
-        title: "Private Blockchain Communication Platform",
-        summary: "Permissioned blockchain for secure messaging",
-        description:
-            "Final-year capstone project implementing a private, permissioned blockchain using Hyperledger Fabric. Enables secure user onboarding, private communication, and auditable document sharing, with Docker-based deployment and scalable architecture.",
-        images: ["/projects/blockchain-1.png"],
-        tech: [
-            "Hyperledger Fabric",
-            "Blockchain Systems",
-            "Docker",
-            "Node.js",
-            "Distributed Systems",
-        ],
-        link: "https://github.com/gshyam46/fabric-chain",
     },
     {
         id: 6,
