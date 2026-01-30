@@ -1,157 +1,21 @@
-
-
-
-
-
-
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
-import GlassHeading from "./ui/GlassHeading";
-import ProjectMotionCard from "./ui/ProjectMotionCard";
-import ProjectCard from "./ui/ProjectCard";
-import { PROJECTS } from "@/constants/projects";
+import { useDevice } from "@/hooks/useDevice";
+import ProjectsMobile from "./mobile/ProjectsMobile";
+import ProjectsDesktop from "./ProjectsDesktop";
 
 export default function Projects() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [showAll, setShowAll] = useState(true);
+  const { isDesktop, isTablet } = useDevice();
 
-  const inView = useInView(sectionRef, {
-    margin: "-25% 0px -80% 0px",
-  });
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
-  const progress = useTransform(scrollYProgress, [0.2, 0.45], [0, 1], {
-    clamp: true,
-  });
-
-  const SPRING = { stiffness: 140, damping: 26 };
-
-  const cardW = 550;
-  const cardH = 280;
-  const gap = 50;
-
-  const deck = [
-    [-120, -20],
-    [0, 0],
-    [120, -20],
-  ];
-
-  const grid = [
-    [-cardW - gap, 0],
-    [0, 0],
-    [cardW + gap, 0],
-  ];
-
-  const mainCards = PROJECTS.slice(0, 3);
-  const extraCards = PROJECTS.slice(3);
-const handleToggle = () => {
-  if (showAll) {
-    // Scroll smoothly BEFORE collapsing
-    sectionRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-
-    setTimeout(() => {
-      setShowAll(false);
-    }, 350); // sync with animation
-  } else {
-    setShowAll(true);
+  // Device router pattern - explicit component routing
+  if (isDesktop) {
+    return <ProjectsDesktop />;
   }
-};
-
-
-  return (
-    <section ref={sectionRef} className="relative w-full z-30">
-      <div className="flex w-full justify-center mt-24 mb-5">
-        <GlassHeading
-          text="Projects"
-          width="w-[100%]"
-          position="center"
-          fontSize="2.2rem"
-          height="h-[60px]"
-        />
-      </div>
-
-      {/* MAIN 3 PROJECTS */}
-      <div className="relative h-[360px] w-full flex justify-center">
-        {mainCards.map((project, i) => (
-          <ProjectMotionCard
-            key={project.id}
-            project={project}
-            index={i}
-            progress={progress}
-            deck={deck}
-            grid={grid}
-            inView={inView}
-          />
-        ))}
-      </div>
-
-      {/* EXTRA PROJECTS (SMOOTH COLLAPSE) */}
-      <AnimatePresence mode="wait">
-        {showAll && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ 
-              opacity: 1, 
-              height: "auto",
-              transition: {
-                height: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
-                opacity: { duration: 0.4, delay: 0.1 }
-              }
-            }}
-            exit={{ 
-              opacity: 0, 
-              height: 0,
-              transition: {
-                opacity: { duration: 0.5, delay: 0.1 },
-                height: { duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }
-              }
-            }}
-            className="w-full px-6 overflow-hidden"
-          >
-            <div className="w-[95%] ml-12 mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 ">
-              {extraCards.map((project, i) => (
-                <motion.div
-                  key={project.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  transition={{
-                    delay: showAll ? i * 0.08 : 0,
-                    duration: 0.4,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                >
-                  <ProjectCard project={project} />
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* VIEW MORE BUTTON */}
-      {/* <div className="flex justify-center mt-12">
-        <button
-          onClick={handleToggle}
-          className="px-6 py-2 text-sm text-white/60 hover:text-white
-                     bg-transparent hover:bg-white/5 rounded
-                     transition-all duration-300"
-        >
-          {showAll ? "View less" : "View more"}
-        </button>
-      </div> */}
-    </section>
-  );
+  
+  if (isTablet) {
+    // For tablet, use desktop component for now
+    return <ProjectsDesktop />;
+  }
+  
+  return <ProjectsMobile />;
 }
-
-
-

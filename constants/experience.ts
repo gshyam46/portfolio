@@ -60,7 +60,7 @@ export const EXPERIENCES: Experience[] = [
 
     {
         company: "Vizares",
-        logo: "/logos/oracle.png",
+        logo: "/logos/vizares.jfif",
         role: "Software Developer Intern",
         location: "Bengaluru, India",
         type: "Internship",
@@ -86,7 +86,7 @@ export const EXPERIENCES: Experience[] = [
 
     {
         company: "ContentEaseAI",
-        logo: "/logos/oracle.png",
+        logo: "/logos/contenteaseai.jfif",
         role: "Software Developer Intern",
         location: "Tempe, AZ, USA (Remote)",
         type: "Internship",

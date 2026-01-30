@@ -1,17 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { dmSans,plex,garamond } from "./fonts";
 import "./globals.css";
 import "./glass.css";
-import StarsCanvas from "@/components/StarBackground";
 
-
-// import Footer from "@/components/Footer";
-
-const inter = Inter({ subsets: ["latin"] });
+import ClientLayout from "@/components/ClientLayout";
+import CursorTrail from "@/components/ui/CursorTrail";
 
 export const metadata: Metadata = {
-  title: "Space Portfolio",
-  description: "This is my portfolio",
+  title: "Shyam's Portfolio",
+  description:
+    "Ghanashyam's Personal Portfolio Website showcasing work, projects, skills, and contact information.",
 };
 
 export default function RootLayout({
@@ -21,16 +19,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-
       <body
-        className={`${inter.className} bg-black overflow-y-scroll overflow-x-hidden`}
+        className={`${dmSans.variable} ${plex.variable} ${garamond.variable}
+        bg-black overflow-x-hidden`}
       >
-
-        <StarsCanvas />
-
-
-        {children}
-        {/* <Footer /> */}
+          <CursorTrail />
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

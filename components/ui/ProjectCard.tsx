@@ -22,13 +22,23 @@ export default function ProjectCard({
       aria-pressed={active ? "true" : "false"}
       whileHover={{ scale: 1.03, y: -6 }}
       transition={{ type: "spring", stiffness: 220, damping: 20 }}
-      className="relative glass-card  cursor-pointer focus:outline-none focus:ring-2 focus:ring-white/30"
+      className="relative glass-card cursor-pointer focus:outline-none focus:ring-2 focus:ring-white/30 w-full h-[500px]"
       style={{
-        width: "550px",
-        height: "300px",
+        maxWidth: "550px",
         zIndex: active ? 10 : 1,
       }}
     >
+      {/* ADD THIS BLOCK - Background Image */}
+      {project.images?.[0] && (
+        <div className="absolute inset-0 rounded-2xl overflow-hidden">
+          <img
+            src={project.images[0]}
+            alt={project.title}
+            className="w-full h-full object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+        </div>
+      )}
       {/* Glass layers */}
 
 
@@ -75,6 +85,7 @@ export default function ProjectCard({
           </button>
         </div>
       </div>
+
     </motion.div>
   );
 }

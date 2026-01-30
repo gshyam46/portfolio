@@ -12,8 +12,8 @@ interface GlassRoleProps {
 export default function GlassRole({
   text,
   width = "max-w-[820px]",
-  height = "h-[120px]",
-  fontSize = "3rem",
+  height = "h-[100px] sm:h-[120px]",
+  fontSize = "clamp(1.5rem, 5vw, 3rem)",
   position = "center",
   className = "",
 }: GlassRoleProps) {
@@ -21,11 +21,11 @@ export default function GlassRole({
     position === "left"
       ? "items-start text-left"
       : position === "right"
-      ? "items-end text-right"
-      : "items-center text-center";
+        ? "items-end text-right"
+        : "items-center text-center";
 
   return (
-    <div className={`container container--inline mt-8 ${className}`}>
+    <div className={`container container--inline mt-4 sm:mt-6 md:mt-8 ${className}`}>
       <div
         className={`
           glass-container
